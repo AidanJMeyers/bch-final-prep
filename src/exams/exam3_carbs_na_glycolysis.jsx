@@ -1,8 +1,9 @@
 import React from 'react';
-import { Callout, Table, Theme, SvgFrame } from '../components/Visual.jsx';
+import { Callout, Table, Theme, SvgFrame, AnchorImage, ImgGrid } from '../components/Visual.jsx';
 
+// Pathway-style SVG kept for the glycolysis cheatsheet — gives a quick at-a-glance summary
 const GlycolysisOverviewSVG = (
-  <SvgFrame width={460} height={290} label="Glycolysis: priming (steps 1–5, costs 2 ATP) → cleavage → payoff (steps 6–10, makes 4 ATP, 2 NADH). Net: glucose → 2 pyruvate + 2 ATP + 2 NADH.">
+  <SvgFrame width={460} height={290} label="Glycolysis: priming (steps 1–5, costs 2 ATP) → cleavage → payoff (steps 6–10, makes 4 ATP, 2 NADH). Net per glucose: 2 pyruvate + 2 ATP + 2 NADH.">
     <text x="20" y="22" fontSize="12" fill="#0f172a" fontWeight="700">Glycolysis (10 steps)</text>
     {[
       ['1. HK', 'glucose → G6P', 'ATP → ADP', '#dc2626', 'irreversible'],
@@ -26,47 +27,10 @@ const GlycolysisOverviewSVG = (
   </SvgFrame>
 );
 
-const HaworthGlucoseSVG = (
-  <SvgFrame width={420} height={210} label="α-D-glucopyranose: anomeric C1 –OH points DOWN (α). β: points UP. CH₂OH at C5 points UP for D-sugars in standard orientation.">
-    <polygon points="80,140 130,100 200,100 240,140 200,180 130,180" fill="none" stroke="#0f172a" strokeWidth="2" />
-    <text x="63" y="145" fontSize="13" fill="#dc2626">O</text>
-    <text x="125" y="98" fontSize="11" fill="#0f172a">C2</text>
-    <text x="200" y="98" fontSize="11" fill="#0f172a">C3</text>
-    <text x="245" y="145" fontSize="11" fill="#0f172a">C4</text>
-    <text x="200" y="195" fontSize="11" fill="#0f172a">C5</text>
-    <text x="105" y="195" fontSize="11" fill="#16a34a">C1 (anomeric)</text>
-    <line x1="120" y1="180" x2="120" y2="200" stroke="#0f172a" />
-    <text x="92" y="212" fontSize="11" fill="#dc2626">α-OH (down)</text>
-    <line x1="200" y1="100" x2="220" y2="80" stroke="#0f172a" />
-    <text x="218" y="76" fontSize="11" fill="#16a34a">CH₂OH (C6, up)</text>
-    <text x="40" y="36" fontSize="13" fill="#0f172a" fontWeight="700">α-D-glucopyranose</text>
-  </SvgFrame>
-);
-
-const AMPKLogicSVG = (
-  <SvgFrame width={460} height={170} label="AMPK senses energy crisis (high AMP, low ATP). It activates catabolism (glucose uptake, β-oxidation) and inhibits anabolism (fatty acid / cholesterol / glycogen synthesis).">
-    <text x="20" y="25" fontSize="12" fill="#0f172a" fontWeight="700">AMPK = master energy sensor</text>
-    <rect x="30" y="50" width="120" height="40" fill="#fee2e2" stroke="#dc2626" />
-    <text x="50" y="76" fontSize="12" fill="#dc2626">↑ AMP / ↓ ATP</text>
-    <line x1="155" y1="70" x2="200" y2="70" stroke="#0f172a" />
-    <polygon points="200,70 192,66 192,74" fill="#0f172a" />
-    <rect x="205" y="50" width="100" height="40" fill="#fef3c7" stroke="#d97706" />
-    <text x="226" y="76" fontSize="12" fill="#b45309">AMPK ON</text>
-    <line x1="310" y1="60" x2="360" y2="40" stroke="#16a34a" />
-    <polygon points="360,40 352,38 352,46" fill="#16a34a" />
-    <line x1="310" y1="80" x2="360" y2="100" stroke="#dc2626" />
-    <polygon points="360,100 352,96 352,104" fill="#dc2626" />
-    <text x="365" y="38" fontSize="11" fill="#16a34a">↑ glucose uptake (muscle)</text>
-    <text x="365" y="55" fontSize="11" fill="#16a34a">↑ FA β-oxidation</text>
-    <text x="365" y="105" fontSize="11" fill="#dc2626">↓ glycogen / FA / cholest. synth.</text>
-    <text x="20" y="145" fontSize="10" fill="#475569">Past exam: "AMPK upregulates glucose uptake in muscle" — TRUE; "AMPK is activated when ATP is high" — FALSE.</text>
-  </SvgFrame>
-);
-
 const exam = {
   id: 3,
   title: 'Exam 3 — Carbs · Nucleic Acids · Glycolysis · Regulation',
-  subtitle: 'Sugar structures · DNA/RNA & PCR/cloning · bioenergetics · glycolysis · gluconeogenesis · glycogen · regulation',
+  subtitle: 'Sugar structures · DNA/RNA & PCR/cloning · bioenergetics · glycolysis · GNG · glycogen · regulation',
   sections: [
     {
       id: 'carbs',
@@ -77,23 +41,40 @@ const exam = {
           title: 'Monosaccharides: aldoses, ketoses, D vs L',
           content: (
             <>
-              <Theme>Sugars are <strong>polyhydroxy aldehydes (aldoses) or ketones (ketoses)</strong>. The "D" descriptor depends on the configuration of the chiral C <em>furthest</em> from the carbonyl (C5 in glucose).</Theme>
+              <Theme>Sugars are <strong>polyhydroxy aldehydes (aldoses) or ketones (ketoses)</strong>. The "D" descriptor depends on the configuration of the chiral carbon FURTHEST from the carbonyl (C5 in glucose).</Theme>
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e3_carbs_039.jpeg"
+                  alt="D-aldoses family tree from glyceraldehyde through hexoses"
+                  caption="The D-aldose family tree — from D-glyceraldehyde (3 C) through tetroses, pentoses (D-ribose), and hexoses (D-glucose, D-mannose, D-galactose). Each step doubles the number of stereoisomers (2ⁿ⁻²). All D-sugars share the same configuration at the chiral C farthest from the carbonyl."
+                  source="Lehninger fig (BCH 335 lecture, Ch 7)"
+                />
+                <AnchorImage
+                  src="e3_carbs_040.jpeg"
+                  alt="D-mannose, D-glucose, and D-galactose showing C2 and C4 epimers"
+                  caption="EPIMERS: D-mannose differs from D-glucose at C2 (C2 epimer); D-galactose differs from D-glucose at C4 (C4 epimer). Same molecular formula, differ at exactly ONE non-anomeric chiral center. Past exam: circle the two structures that are epimers of each other."
+                />
+              </ImgGrid>
               <ul>
                 <li><strong>D-sugars</strong> dominate biology. <strong>L-sugars</strong> are rare (e.g., L-fucose, L-iduronate in heparin).</li>
                 <li>Carbon count: triose (3), tetrose (4), pentose (5: ribose, deoxyribose), hexose (6: glucose, fructose, galactose, mannose).</li>
                 <li>Linear → cyclic via internal hemiacetal (aldose) or hemiketal (ketose). Cyclization creates a new chiral center at C1 — the <strong>anomeric carbon</strong>.</li>
-                <li><strong>α anomer</strong>: C1 –OH on opposite face from C6 (down in Haworth). <strong>β anomer</strong>: same face (up). Anomers interconvert by mutarotation.</li>
               </ul>
-              {HaworthGlucoseSVG}
-              <Callout kind="tip" title="Drawing alpha-ribose">
-                Past exam: "Draw cyclic α-D-ribose." Ribose forms a furanose (5-membered, O between C1 and C4). α-anomeric –OH points <em>down</em>. C5-CH₂OH points <em>up</em> (D).
+              <AnchorImage
+                src="e3_carbs_002.jpeg"
+                alt="Hemiacetal and hemiketal formation from aldose and ketose"
+                caption="Cyclization mechanism. An aldose's carbonyl C reacts with a hydroxyl elsewhere on the chain → HEMIACETAL (cyclic, with both OR and OH on C1). A ketose makes a HEMIKETAL. The ring O comes from the chain hydroxyl. The new chiral center at the former carbonyl C = the anomeric carbon."
+                source="Lehninger fig (BCH 335 lecture)"
+              />
+              <Callout kind="tip" title="α vs β anomers">
+                After cyclization, the anomeric –OH can point DOWN (α) or UP (β) relative to the CH₂OH at C5. Past exam: 'Draw cyclic α-D-ribose' → furanose ring (5-membered, O between C1 and C4); α anomeric –OH points down; C5-CH₂OH points up (D).
               </Callout>
             </>
           )
         },
         {
           id: 'epimers',
-          title: 'Epimers, anomers, & stereodescriptors',
+          title: 'Epimers, anomers, & enantiomers — the vocabulary',
           content: (
             <>
               <Table
@@ -101,12 +82,12 @@ const exam = {
                 rows={[
                   ["Glucose / Mannose", "C2", "C2 epimers"],
                   ["Glucose / Galactose", "C4", "C4 epimers"],
-                  ["α-glucose / β-glucose", "C1 (anomeric only)", "These are anomers, not epimers"],
-                  ["D-glucose / L-glucose", "all chiral centers", "enantiomers (mirror images)"]
+                  ["α-glucose / β-glucose", "C1 (anomeric only)", "ANOMERS, not epimers"],
+                  ["D-glucose / L-glucose", "all chiral centers", "Enantiomers (mirror images)"]
                 ]}
               />
-              <Callout kind="info" title="Past exam — circle the two epimers">
-                If two sugars differ at exactly ONE non-anomeric chiral C → epimers. If they differ at C1 (anomeric) → anomers. If at all chiral C → enantiomers.
+              <Callout kind="info" title="Past exam pattern">
+                "Circle the two structures that are EPIMERS of each other" — find the pair differing at exactly one non-anomeric chiral C. C1 (anomeric) differences make ANOMERS. All-chiral-C differences make enantiomers.
               </Callout>
             </>
           )
@@ -117,17 +98,23 @@ const exam = {
           content: (
             <>
               <Theme>A glycosidic bond joins the anomeric C of one sugar to a hydroxyl (or another anomeric C) of another. Notation: <strong>α/β-D-Sugar1-(C1→C4)-Sugar2</strong>.</Theme>
+              <AnchorImage
+                src="e3_carbs_004.jpeg"
+                alt="Maltose formation showing alpha 1,4 glycosidic linkage between two glucose units"
+                caption="Maltose: two α-D-glucose units linked α(1→4). One glucose contributes its anomeric C1; the second contributes its C4 hydroxyl. The product still has a FREE anomeric C on the right glucose → maltose is a REDUCING sugar."
+                source="Lehninger fig (BCH 335 lecture)"
+              />
               <Table
                 headers={["Disaccharide", "Components", "Linkage", "Reducing?"]}
                 rows={[
-                  ["Maltose", "Glc + Glc", "α(1→4)", "yes (free anomeric C on second Glc)"],
+                  ["Maltose", "Glc + Glc", "α(1→4)", "yes (free anomeric C)"],
                   ["Lactose", "Gal + Glc", "β(1→4)", "yes"],
                   ["Sucrose", "Glc + Fru", "α,β(1↔2)", "NO — both anomeric carbons used"],
                   ["Cellobiose", "Glc + Glc", "β(1→4)", "yes"]
                 ]}
               />
-              <Callout kind="warn" title="Sucrose is non-reducing">
-                Both anomeric carbons are tied up in the glycosidic bond — no free hemiacetal → cannot reduce Cu²⁺ in Fehling's. Past exam: "true/false: sucrose and lactose each have one glycosidic bond." TRUE — both have exactly one.
+              <Callout kind="warn" title="Past exam — sucrose is non-reducing">
+                Both anomeric carbons are tied up in the α,β-(1↔2) glycosidic bond → no free hemiacetal → cannot reduce Cu²⁺ in Fehling's. Past exam true/false: "sucrose and lactose each have one glycosidic bond" — TRUE (both have exactly one).
               </Callout>
             </>
           )
@@ -137,22 +124,38 @@ const exam = {
           title: 'Polysaccharides — storage & structural',
           content: (
             <>
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e3_carbs_009.jpeg"
+                  alt="Comparison of homopolysaccharides and heteropolysaccharides, branched and unbranched"
+                  caption="Polysaccharide architectures: HOMOPOLY (one sugar type) vs HETEROPOLY; BRANCHED vs UNBRANCHED. Glycogen and amylopectin are branched homopoly (α-glucose). Cellulose is unbranched homopoly (β-glucose). Heparin is unbranched HETEROpoly (sulfated GAG)."
+                  source="Lehninger fig (BCH 335 lecture)"
+                />
+                <AnchorImage
+                  src="e3_carbs_012.jpeg"
+                  alt="Structure of amylose and amylopectin showing branching"
+                  caption="Starch components: amylose (linear, α-1,4) and amylopectin (branched, α-1,4 + α-1,6 every ~24–30 residues). Glycogen looks like amylopectin but more highly branched (every ~8–12) — fast mobilization."
+                />
+              </ImgGrid>
+              <AnchorImage
+                src="e3_carbs_014.jpeg"
+                alt="Cellulose structure with beta 1,4 glycosidic bonds and alternating glucose orientation"
+                caption="Cellulose: β-D-glucose units, β(1→4) linked. The β-linkage forces ALTERNATING orientation of glucose monomers, allowing flat, rigid sheets stabilized by H-bonds → fibrous, insoluble. Same logic for chitin (β-(1→4)-GlcNAc). Past exam: 'cellulose is most similar in solubility to ___' → CHITIN."
+                source="BCH 335 lecture (Ch 7)"
+              />
               <Table
                 headers={["Polymer", "Monomer", "Linkage(s)", "Branched?", "Role"]}
                 rows={[
                   ["Glycogen", "α-D-glucose", "α(1→4) main, α(1→6) branches", "highly (every ~8–12)", "animal energy storage (liver/muscle)"],
                   ["Starch (amylose)", "α-D-glucose", "α(1→4)", "no", "plant storage"],
                   ["Starch (amylopectin)", "α-D-glucose", "α(1→4) + α(1→6)", "yes (every ~25)", "plant storage"],
-                  ["Cellulose", "β-D-glucose", "β(1→4)", "no", "plant cell wall — most similar to chitin in solubility (both fibrous, insoluble)"],
+                  ["Cellulose", "β-D-glucose", "β(1→4)", "no", "plant cell wall — fibrous, insoluble"],
                   ["Chitin", "β-D-GlcNAc", "β(1→4)", "no", "exoskeleton/fungal walls"],
                   ["Dextran", "α-D-glucose", "α(1→6) main + branches", "yes", "bacterial; dental plaque"]
                 ]}
               />
-              <Callout kind="info" title="Past exam — cellulose vs chitin">
-                "The polysaccharide cellulose is most similar to ___ in terms of its solubility." → <strong>chitin</strong> (both β(1→4)-linked, fibrous, insoluble).
-              </Callout>
-              <Callout kind="info" title="Glycogen vs. starch (amylopectin) — animal vs plant">
-                Both branched α-glucan polymers. Glycogen branches every ~8–12 (highly branched, fast mobilization); amylopectin every ~25 (less branched). Both yield <strong>monomeric glucose</strong> on complete hydrolysis. Past exam table: "Complete hydrolysis yields monomers of?" → glucose for both.
+              <Callout kind="info" title="Past exam — glycogen vs amylopectin yields what monomer?">
+                Both yield <strong>monomeric glucose</strong> on complete hydrolysis. Glycogen branches every ~8–12 (fast mobilization), amylopectin every ~25. Both "complete hydrolysis yields monomers of?" → glucose.
               </Callout>
             </>
           )
@@ -162,11 +165,17 @@ const exam = {
           title: 'GAGs & glycoproteins',
           content: (
             <>
+              <AnchorImage
+                src="e3_carbs_028.png"
+                alt="Glycoprotein cell receptors on plasma membrane recognizing extracellular molecules"
+                caption="Glycoprotein cell receptors: surface carbohydrates serve as identity tags for cells, viruses, toxins, hormones. The N- or O-linked glycans determine specificity (e.g., ABO blood groups, HIV gp120 → CD4 + glycan recognition)."
+                source="BCH 335 lecture (Ch 7)"
+              />
               <ul>
                 <li><strong>Glycosaminoglycans (GAGs)</strong>: long, unbranched, anionic disaccharide repeats. Examples: heparin/heparan sulfate (anticoagulant), chondroitin sulfate (cartilage), hyaluronic acid (joints).</li>
                 <li><strong>Heparin</strong> is an unbranched glycosaminoglycan that regulates blood-vessel formation/clotting. Past exam fill: "___ is an unbranched glycosaminoglycan that regulates formation of blood vessels." → <strong>heparin / heparan sulfate</strong>.</li>
-                <li><strong>Agar</strong> is a heteropolysaccharide found in some cell walls and used as a microbiology growth medium.</li>
-                <li><strong>Glycoproteins</strong>: proteins with O- or N-linked glycans (Ser/Thr → O-linked; Asn → N-linked). Past exam: "Proteins post-translationally modified with covalently linked carbohydrates are called ___" → <strong>glycoproteins</strong>.</li>
+                <li><strong>Agar</strong> is a heteropolysaccharide found in some cell walls and used as microbiology growth medium.</li>
+                <li><strong>Glycoproteins</strong>: O-linked through Ser/Thr; N-linked through Asn. Past exam: "Proteins post-translationally modified with covalently linked carbohydrates are called ___" → <strong>glycoproteins</strong>.</li>
               </ul>
             </>
           )
@@ -188,26 +197,32 @@ const exam = {
                 <li>RNA: ribose + A, G, C, U. DNA: deoxyribose + A, G, C, T.</li>
                 <li>The 2′-OH on ribose makes RNA more reactive (base-catalyzed hydrolysis).</li>
               </ul>
+              <Callout kind="info" title="Past exam — UTP vs dUTP">
+                A nucleoside triphosphate where the base is uracil = UTP (RNA building block). Adding the SAME base U to deoxyribose makes dUTP — present in DNA only as a synthesis intermediate (rapidly removed). Mature DNA uses T, not U. Test: "UTP is/are: standard substrate for a PCR reaction" → FALSE; "standard component of mature DNA" → FALSE.
+              </Callout>
             </>
           )
         },
         {
           id: 'na-features',
-          title: 'Nucleic acid structure & features',
+          title: 'Nucleic acid structure & features (true/false trap pile)',
           content: (
             <>
               <Table
                 headers={["Statement", "True/False", "Why"]}
                 rows={[
-                  ["Nucleotides are connected by 3′,5′-phosphodiester bonds and the strands are held together by H-bonds", "TRUE", "the canonical Watson–Crick model"],
+                  ["Connected by 3′,5′-phosphodiester bonds; strands held by H-bonds", "TRUE", "canonical Watson–Crick"],
                   ["A always equals T (and G = C) in dsDNA", "TRUE", "Chargaff's rule for dsDNA"],
-                  ["DNA is a left-handed helix (Z-DNA)", "FALSE", "B-form DNA (the cellular form) is right-handed"],
+                  ["DNA is a left-handed helix (Z-DNA)", "FALSE", "B-DNA (cellular form) is right-handed"],
                   ["The two strands of dsDNA are antiparallel", "TRUE", "5′→3′ on one, 3′→5′ on the other"],
-                  ["A and T pair with two H-bonds; G and C with three", "TRUE", "GC pairing more stable"],
-                  ["Purines and pyrimidines can absorb UV light", "TRUE", "260 nm — used to quantify nucleic acids"],
-                  ["Purines/pyrimidines exist as free-floating bases in the cytoplasm of healthy cells", "FALSE", "almost all are sugar/phosphate-bound; free purines are scavenged or degraded"]
+                  ["A and T pair with two H-bonds; G and C with three", "TRUE", "GC pairing more stable → higher Tm"],
+                  ["Purines and pyrimidines absorb UV at 260 nm", "TRUE", "Used to quantify NAs"],
+                  ["Free purines/pyrimidines float in healthy cell cytoplasm", "FALSE", "Almost all are part of nucleotides; free bases scavenged"]
                 ]}
               />
+              <Callout kind="info" title="Past exam — base composition for ssRNA">
+                In ssRNA, base composition need NOT satisfy A=U, G=C (those are dsDNA Chargaff rules). Any composition that excludes T and totals 100% is allowed → "all of these are correct."
+              </Callout>
             </>
           )
         },
@@ -220,14 +235,14 @@ const exam = {
                 <li>Steps: <strong>denature</strong> (~95 °C) → <strong>anneal</strong> (~55 °C) → <strong>extend</strong> (~72 °C, optimum for Taq).</li>
                 <li>Reagents: thermostable DNA polymerase (Taq), forward + reverse primers, dNTPs, Mg²⁺, template, buffer with salts &amp; detergent.</li>
               </ul>
-              <Callout kind="info" title="Past exam: 'You set up and run a PCR. In the test tube: forward and reverse primers, thermostable DNA polymerase, template DNA, and pH 8.8 buffered agent (with salts and detergent), water. Which mistake did you make?'">
+              <Callout kind="info" title="Past exam: 'Forward and reverse primers, polymerase, template, pH 8.8 buffer, water — which mistake?'">
                 Forgot the <strong>dNTPs</strong>. Without dNTPs the polymerase has nothing to extend with.
               </Callout>
               <p>Other key facts:</p>
               <ul>
                 <li>Optimal extension at <strong>72 °C</strong>; pH ~8.8 (Taq optimum).</li>
                 <li>Each cycle <em>doubles</em> the number of templates (exponential).</li>
-                <li>Past exam: "Explain how salt influences the melting temperature of dsDNA" — <strong>more salt = higher Tm</strong> because cations shield the negatively charged phosphate backbone, allowing strands to stack closer.</li>
+                <li>Past exam: "Salt influences melting temperature of dsDNA how?" — <strong>more salt = higher Tm</strong> because cations shield the negatively charged phosphate backbone, allowing strands to stack closer.</li>
               </ul>
             </>
           )
@@ -238,12 +253,12 @@ const exam = {
           content: (
             <>
               <Callout kind="tip" title="Past exam — vector requirements">
-                "Which of the following is required for a plasmid vector to be expressed at two different pHs?" → <strong>two promoters with different pH dependencies</strong>. (Standard plasmid features: origin of replication, antibiotic resistance, multiple cloning site, promoter — but expression at two pHs needs two promoters.)
+                "Which is required for a plasmid vector to be expressed at two different pHs?" → <strong>two promoters with different pH dependencies</strong>.
               </Callout>
               <ul>
-                <li>Plasmids are typically &lt; the bacterial genome to be retained efficiently. Past exam: "Plasmid vectors should be SMALLER than the bacterial genome (the same size as) for retention."</li>
-                <li>To clone a gene of interest into a vector at a single restriction site, the site must be a <strong>palindromic</strong> sequence — the same when read 5′→3′ on either strand. Past exam: pick the dsDNA sequence that reads as a palindrome, e.g., <strong>GAATTC / CTTAAG</strong> (EcoRI).</li>
-                <li>Past exam progress order: cut vector with restriction enzymes → confirm ligation by gel electrophoresis → confirm sequence by Sanger.</li>
+                <li>Plasmids should be <strong>SMALLER</strong> than the bacterial genome to be retained efficiently.</li>
+                <li>To clone a gene into a single restriction site, the site must be a <strong>palindromic</strong> sequence (reads the same 5′→3′ on either strand). Example: <strong>GAATTC / CTTAAG</strong> (EcoRI).</li>
+                <li>Past-exam progression order: cut vector with restriction enzymes → confirm ligation by gel electrophoresis → confirm sequence by Sanger.</li>
               </ul>
             </>
           )
@@ -259,17 +274,17 @@ const exam = {
           title: 'ΔG, ΔG°′, K_eq — and how to use them',
           content: (
             <>
-              <Theme>ΔG° = standard free-energy change at standard conditions (1 M, pH 7, 25 °C). ΔG = actual cellular free-energy change at real concentrations: <strong>ΔG = ΔG° + RT ln Q</strong>, where Q = [products]/[reactants].</Theme>
+              <Theme>ΔG° = standard free-energy change (1 M, pH 7, 25 °C). ΔG = actual cellular free-energy change at real concentrations: <strong>ΔG = ΔG° + RT ln Q</strong>, where Q = [products]/[reactants].</Theme>
               <ul>
                 <li>ΔG &lt; 0 → spontaneous in the forward direction.</li>
                 <li>ΔG = 0 → equilibrium.</li>
                 <li>ΔG &gt; 0 → reaction goes in reverse.</li>
                 <li>An enzyme cannot make ΔG &lt; 0; it only makes the kinetics fast.</li>
               </ul>
-              <Callout kind="info" title="Past exam — 'A → B has ΔG = +18 kJ/mol; reaction started with 10 mM A. After 5 hr...'">
-                Reaction starts with [A]/[B] = ∞, but ΔG° is +18 kJ/mol. To check whether reaction started, calculate ΔG: ΔG = ΔG° + RT ln([B]/[A]). Initially [B]≈0 → ln(small) is very negative, can drive ΔG below 0. So <strong>"the reaction has started, even though products will not exceed reactants"</strong> if final ΔG is barely &lt; 0. Or "B will reach equilibrium" if enough time passes.
+              <Callout kind="info" title="Past exam — 'A → B has ΔG° = +18 kJ/mol; reaction started with 10 mM A. After 5 hr...'">
+                Reaction starts with [A]/[B] = ∞; ΔG° is +18 kJ/mol. Calculate actual ΔG: ΔG = ΔG° + RT ln([B]/[A]). Initially [B]≈0 → ln(small) is very negative, can drive ΔG below 0. So <strong>"the reaction has started, even though products will not exceed reactants"</strong> if final ΔG is barely &lt; 0.
               </Callout>
-              <p>"3-phosphoglycerate → 2-PG (ΔG° = +4.6 kJ/mol) AND 2-PG → PEP (ΔG° = +1.8 kJ/mol)." Calculate overall: 3-PG → PEP, ΔG° = (+4.6) + (+1.8) = <strong>+6.4 kJ/mol</strong>.</p>
+              <p>Past-exam example: "3-PG → 2-PG (ΔG° = +4.6 kJ/mol)" + "2-PG → PEP (ΔG° = +1.8 kJ/mol)" → overall 3-PG → PEP, ΔG° = +6.4 kJ/mol.</p>
             </>
           )
         },
@@ -290,7 +305,7 @@ const exam = {
                 ]}
               />
               <Callout kind="tip" title="Past exam — 1,3-BPG → 3-PG calculation">
-                Hydrolysis of 1,3-BPG → 3-PG releases ~−49.4 kJ/mol. ATP hydrolysis releases ~−30.5 kJ/mol. ΔG° for "1,3-BPG + ADP → 3-PG + ATP" = (−49.4) − (−30.5) = <strong>~−18.9 kJ/mol</strong>. Coupled, energetically very favorable.
+                Hydrolysis of 1,3-BPG releases ~−49.4 kJ/mol. ATP hydrolysis releases ~−30.5 kJ/mol. So ΔG° for "1,3-BPG + ADP → 3-PG + ATP" = (−49.4) − (−30.5) = <strong>~−18.9 kJ/mol</strong>. Energetically very favorable.
               </Callout>
             </>
           )
@@ -307,15 +322,45 @@ const exam = {
           content: (
             <>
               <Theme>Glucose + 2 NAD⁺ + 2 ADP + 2 P_i → 2 pyruvate + 2 NADH + 2 H⁺ + 2 ATP + 2 H₂O. Cytosolic. Anaerobic-capable.</Theme>
+              <AnchorImage
+                src="e3_gng_006.jpeg"
+                alt="Glycolysis pathway with G6P branching to PPP and pentose phosphates"
+                caption="Glycolysis trunk + branches: glucose → G6P (HK), then G6P branches into the pentose phosphate pathway (PPP) for NADPH + ribose-5-P, OR continues into glycolysis. Important to remember PPP is a parallel cytosolic branch, not part of glycolysis proper."
+                source="BCH 335 lecture (GNG and regulation)"
+              />
               {GlycolysisOverviewSVG}
               <Callout kind="info" title="Three irreversible (committed) steps">
-                Hexokinase, PFK-1, pyruvate kinase. These are bypassed in <strong>gluconeogenesis</strong> by glucose-6-phosphatase, FBPase-1, and PEP-carboxykinase + pyruvate carboxylase.
+                Hexokinase, PFK-1, pyruvate kinase. Bypassed in <strong>gluconeogenesis</strong> by glucose-6-phosphatase, FBPase-1, and PEP-carboxykinase + pyruvate carboxylase.
               </Callout>
               <ul>
-                <li>Step 6 is the <strong>oxidation–reduction step</strong> (GAPDH, NAD⁺ → NADH). Past exam: "This reaction is one step in which of the following metabolic processes?" → glycolysis (step 6).</li>
+                <li>Step 6 = the redox step (GAPDH, NAD⁺ → NADH). Past exam: "This reaction is one step in which metabolic process?" → glycolysis.</li>
                 <li>Steps 7 (PGK) and 10 (PK) involve <strong>substrate-level phosphorylation</strong>: a high-energy phosphate group is transferred directly to ADP.</li>
-                <li>Past exam: "If the concentrations of all reactants are maintained at 1.00 M and products at 0.10 M, which way does the reaction proceed?" — calculate ΔG = ΔG° + RT ln([P]/[R]). With [P]/[R] very small and ΔG° not too positive, ΔG &lt; 0 → forward.</li>
+                <li>Past exam: "If reactants = 1.00 M and products = 0.10 M, which way does the reaction proceed?" — calculate ΔG = ΔG° + RT ln([P]/[R]). With [P]/[R]=0.1, ΔG &lt; 0 → forward.</li>
               </ul>
+            </>
+          )
+        },
+        {
+          id: 'hexokinase',
+          title: 'Hexokinase isozymes & substrate trapping',
+          content: (
+            <>
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e3_gng_018.jpeg"
+                  alt="Hexokinase isozymes glycolytic flux versus enzyme amount"
+                  caption="Four mammalian hexokinase isozymes (HK I–IV) catalyze the SAME reaction but have different kinetic properties (different Km, different Vmax response curves). HK IV (glucokinase, in liver and pancreatic β-cells) has high Km (~10 mM) → glucose sensor, only fires when blood glucose is high (after a meal)."
+                  source="BCH 335 lecture (GNG)"
+                />
+                <AnchorImage
+                  src="e3_gng_023.png"
+                  alt="Hexokinase induced fit closing around glucose"
+                  caption="Hexokinase induced fit: glucose binding causes a large conformational closure that brings ATP and glucose into the right geometry. Without glucose bound, water cannot get in to be wastefully phosphorylated. Past-exam classic illustration of induced fit's biological purpose."
+                />
+              </ImgGrid>
+              <Callout kind="warn" title="Past exam — hexokinase isozyme misconception">
+                "The four hexokinases catalyze the production of G6P with widely varying standard free energies." → <strong>FALSE</strong>. They use the same substrates → same ΔG°. They differ in <strong>kinetic properties</strong> (Km, regulation), not thermodynamics.
+              </Callout>
             </>
           )
         },
@@ -326,14 +371,10 @@ const exam = {
             <>
               <ul>
                 <li>Anaerobic muscle: pyruvate + NADH → lactate + NAD⁺ (regenerates NAD⁺ to keep glycolysis running).</li>
-                <li>Yeast: pyruvate → acetaldehyde → ethanol (ethanol fermentation).</li>
-                <li>Past exam ranking: "The steps of glycolysis between glyceraldehyde-3-P and pyruvate involve all of the following EXCEPT..." → all of them happen except the wrong-direction one (look for "phosphoryl group transfer to ADP" — yes, in steps 7 &amp; 10; "oxidation of NADH to NAD⁺" — NO; that\'s the reverse, wrong direction).</li>
+                <li>Yeast: pyruvate → acetaldehyde → ethanol.</li>
               </ul>
               <Callout kind="tip" title="Pentose phosphate pathway (PPP)">
-                Generates <strong>NADPH</strong> (reductive biosynthesis &amp; antioxidant defense) and <strong>ribose-5-P</strong> (nucleotide synthesis). Past exam short-answer: "List two cellular functions of NADPH" → <em>(1) reductive biosynthesis (lipids, cholesterol)</em>; <em>(2) protection from oxidative damage (regenerates glutathione)</em>; in plants, photosynthesis.
-              </Callout>
-              <Callout kind="info" title="Past exam — increased flux to PPP">
-                "Which would increase production of glucose-1-phosphate?" — this asks about glycogen breakdown. "Which would increase production of glucose to enter PPP?" → <strong>binding of glucose-6-phosphate to its receptor in myocytes</strong> ... (or the answer that pulls G6P into the PPP rather than glycolysis).
+                Generates <strong>NADPH</strong> (reductive biosynthesis &amp; antioxidant defense) and <strong>ribose-5-P</strong> (nucleotide synthesis). Past exam short-answer: "List two cellular functions of NADPH" → reductive biosynthesis (lipids, cholesterol) AND protection from oxidative damage (regenerates glutathione); in plants, photosynthesis.
               </Callout>
             </>
           )
@@ -349,34 +390,48 @@ const exam = {
           title: 'Where & why',
           content: (
             <>
-              <Theme>Gluconeogenesis (GNG) makes glucose from non-carbohydrate precursors. Mostly in <strong>liver</strong>; small contribution from kidney. Required during fasting, low-carb diets, prolonged exercise.</Theme>
+              <Theme>Gluconeogenesis (GNG) makes glucose from non-carb precursors. Mostly in <strong>liver</strong>; some kidney during prolonged fasting. Required during fasting, low-carb diets, prolonged exercise.</Theme>
+              <AnchorImage
+                src="e3_gng_002.png"
+                alt="Liver and muscle glucose metabolism showing the Cori cycle"
+                caption="Liver vs muscle in fasting/exercise: liver releases glucose to blood (only liver has glucose-6-phosphatase to dephosphorylate G6P). Muscle takes glucose from blood, runs anaerobic glycolysis → lactate → blood → liver, where the Cori cycle regenerates glucose. Net cost: 6 ATP/glucose paid by liver."
+                source="BCH 335 lecture (GNG)"
+              />
               <ul>
                 <li>Reverses 7 of 10 glycolytic reactions, with <strong>4 unique enzymes</strong> to bypass the 3 irreversible glycolytic steps:
                   <ul>
                     <li>Pyruvate carboxylase (mitochondria) → oxaloacetate</li>
                     <li>PEP carboxykinase (PEPCK) → PEP</li>
                     <li>FBPase-1 → F1,6BP → F6P</li>
-                    <li>Glucose-6-phosphatase → glucose</li>
+                    <li>Glucose-6-phosphatase (liver only!) → glucose</li>
                   </ul>
                 </li>
                 <li>Past exam: "Most gluconeogenesis takes place in which organ?" → <strong>Liver</strong>.</li>
-                <li>Past exam term: "The ability of the body to maintain A at a relatively constant concentration is an example of the condition we call ___" → <strong>homeostasis</strong>. The rate at which T is converted to R is called <strong>metabolic flux</strong>.</li>
+                <li>Past exam term: "The ability of the body to maintain A at a relatively constant concentration is an example of ___" → <strong>homeostasis</strong>. The rate at which T is converted to R is called <strong>metabolic flux</strong>.</li>
               </ul>
             </>
           )
         },
         {
           id: 'glycogen',
-          title: 'Glycogen synthesis & breakdown',
+          title: 'Glycogen synthesis & breakdown — coordinately regulated',
           content: (
             <>
               <ul>
-                <li><strong>Glycogen synthase</strong> (GS) — adds α(1→4); activated when dephosphorylated; phosphorylated form is inactive (insulin signaling reverses this).</li>
-                <li><strong>Glycogen phosphorylase</strong> (GP) — cleaves α(1→4); produces glucose-1-phosphate by phosphorolysis (uses Pi, not water!). Activated by phosphorylation (glucagon/epinephrine cascade).</li>
-                <li>Past exam: "Glycogen synthase and glycogen phosphorylase must be coordinately regulated... what's the OTHER reason that one cannot be ON when the other is ON?" → to <strong>prevent a futile cycle</strong> (TRUE).</li>
-                <li>Past exam: "AMPK is activated when ATP is high" → <strong>FALSE</strong>. "AMPK upregulates insulin secretion" → <strong>FALSE</strong>. "AMPK upregulates glucose uptake in muscles" → <strong>TRUE</strong>. "AMPK increases the urge to exercise" — silly phrasing but → ambiguous; the right ones are TRUE for the muscle-uptake and lipid-synthesis-inhibition statements.</li>
+                <li><strong>Glycogen synthase</strong> (GS) — adds α(1→4); ACTIVE when DEphosphorylated; phospho-GS is inactive. Insulin → dephosphorylates → GS ON.</li>
+                <li><strong>Glycogen phosphorylase</strong> (GP) — cleaves α(1→4) by phosphorolysis (uses Pi, not water!), making glucose-1-phosphate. ACTIVE when phosphorylated. Glucagon/epinephrine → kinase cascade → GP ON.</li>
               </ul>
-              {AMPKLogicSVG}
+              <Callout kind="warn" title="Past exam — futile cycle prevention">
+                "GS and GP must be coordinately regulated. What's the OTHER reason that one cannot be ON when the other is ON?" → to <strong>prevent a futile cycle</strong> (TRUE). Both running simultaneously would build and break glycogen wastefully, burning ATP/UTP for nothing.
+              </Callout>
+              <Callout kind="info" title="AMPK truth checks">
+                <ul>
+                  <li>"AMPK is activated when ATP is HIGH" → <strong>FALSE</strong></li>
+                  <li>"AMPK upregulates insulin secretion" → <strong>FALSE</strong></li>
+                  <li>"AMPK upregulates glucose uptake in muscles" → <strong>TRUE</strong></li>
+                  <li>"AMPK inhibits FA / glycogen / cholesterol synthesis" → <strong>TRUE</strong></li>
+                </ul>
+              </Callout>
             </>
           )
         }
@@ -392,20 +447,23 @@ const exam = {
           content: (
             <>
               <Theme>PFK-1 is the committed step of glycolysis. It senses energy status (ATP, AMP, citrate) and coordinates with gluconeogenesis through F-2,6-BP.</Theme>
+              <AnchorImage
+                src="e3_gng_025.jpeg"
+                alt="PFK-1 regulation by F-2,6-BP, ATP, AMP, and citrate"
+                caption="PFK-1 regulation: AMP and F-2,6-BP activate; ATP and citrate inhibit. F-2,6-BP is itself controlled by the bifunctional PFK-2/FBPase-2 enzyme — under insulin, the kinase domain (PFK-2) is active, building F-2,6-BP → glycolysis ON. Under glucagon, the phosphatase (FBPase-2) destroys F-2,6-BP → glycolysis OFF, GNG ON."
+                source="BCH 335 lecture (GNG and regulation)"
+              />
               <Table
                 headers={["Effector", "Effect on PFK-1", "Why"]}
                 rows={[
                   ["AMP", "↑ activate", "low energy → run glycolysis"],
                   ["ATP", "↓ inhibit (allosteric)", "high energy → don\'t over-run"],
                   ["Citrate", "↓ inhibit", "CAC has plenty; back off"],
-                  ["F-2,6-BP", "↑ activate (potently)", "fed/insulin signal: run glycolysis, OFF gluconeogenesis"]
+                  ["F-2,6-BP", "↑ activate (potently)", "fed/insulin signal: run glycolysis, OFF GNG"]
                 ]}
               />
-              <Callout kind="info" title="Past exam — multiple-choice">
-                "F-2,6-BP is a 'side' metabolite of glycolysis... F-2,6-BP <em>activates</em> AND <em>relieves</em> the allosteric inhibitory effect of ATP on one glycolytic enzyme. Which?" → <strong>PFK-1</strong> (Phosphofructokinase).
-              </Callout>
-              <Callout kind="info" title="Hexokinase isozymes">
-                Past exam: "The four human hexokinases catalyze the production of glucose-6-phosphate with widely varying standard free energies." → <strong>FALSE</strong>. They use the same substrates → same ΔG°. They differ in <strong>kinetic properties</strong> (Km, regulation). Hexokinase IV (glucokinase) has high Km — used in liver/pancreas to sense high glucose.
+              <Callout kind="info" title="Past exam — F-2,6-BP">
+                "F-2,6-BP is a 'side' metabolite of glycolysis. F-2,6-BP <em>activates</em> AND <em>relieves</em> the allosteric inhibitory effect of ATP on which glycolytic enzyme?" → <strong>PFK-1</strong>.
               </Callout>
             </>
           )
@@ -415,14 +473,14 @@ const exam = {
           title: 'The Cori cycle (& glucose–alanine cycle)',
           content: (
             <>
-              <p>Cori cycle: muscle does anaerobic glycolysis → produces lactate → blood → liver → gluconeogenesis → glucose → blood → muscle. Past exam asks the directionality and the byproduct.</p>
+              <p>Cori cycle: muscle does anaerobic glycolysis → produces lactate → blood → liver → GNG → glucose → blood → muscle.</p>
               <Table
                 headers={["Statement", "T/F"]}
                 rows={[
-                  ["Glucose is transported toward the liver", "FALSE — glucose goes liver → muscle"],
-                  ["Glucose-6-phosphate is converted into glucose by glucose-6-phosphatase in the skeletal muscle", "FALSE — only liver has G6Pase"],
-                  ["Lactate is converted into pyruvate by lactate dehydrogenase in the skeletal muscle", "TRUE in liver after Cori, but more often: muscle generates lactate in glycolysis (LDH reverse). The Cori-cycle direction in liver is lactate → pyruvate."],
-                  ["NADH is generated by a dehydrogenase in the skeletal muscle", "TRUE — GAPDH, also LDH consumes NADH to make lactate"]
+                  ["Glucose is transported toward the liver", "FALSE — glucose flows liver → muscle"],
+                  ["G6P is converted to glucose by glucose-6-phosphatase in skeletal muscle", "FALSE — only LIVER has G6Pase"],
+                  ["Lactate is converted into pyruvate by LDH in skeletal muscle", "FALSE in Cori-cycle direction (LIVER does this); muscle LDH usually goes pyruvate → lactate"],
+                  ["NADH is generated by a dehydrogenase in skeletal muscle", "TRUE — GAPDH"]
                 ]}
               />
             </>
@@ -445,7 +503,7 @@ const exam = {
       { term: 'Reducing sugar', def: 'Has a free anomeric carbon (open-chain aldehyde or hemiketal). Sucrose is non-reducing.' },
       { term: 'Anomer', def: 'Cyclic stereoisomer differing only at the anomeric C (α vs β).' },
       { term: 'Epimer', def: 'Stereoisomer differing at exactly one non-anomeric chiral C (e.g., glucose vs galactose at C4).' },
-      { term: 'Phosphodiester bond', def: '3′,5′ linkage between nucleotides — the backbone of DNA/RNA.' },
+      { term: 'Phosphodiester bond', def: '3′,5′ linkage between nucleotides — backbone of DNA/RNA.' },
       { term: 'Palindrome', def: 'dsDNA sequence that reads 5′→3′ identically on both strands; recognized by most restriction enzymes.' },
       { term: 'ΔG vs ΔG°', def: 'ΔG = ΔG° + RT ln Q. Cellular ΔG depends on real concentrations, not just ΔG°.' },
       { term: 'Substrate-level phosphorylation', def: 'Direct transfer of P from a substrate to ADP → ATP (PGK and PK in glycolysis; succinyl-CoA synthetase in CAC).' },
@@ -463,24 +521,22 @@ const exam = {
       { name: 'PCR', desc: 'Denature → anneal → extend at 95/55/72 °C. Needs Taq, primers, dNTPs, Mg²⁺, template, buffer.' },
       { name: 'Sanger sequencing', desc: 'ddNTP chain termination; reads sequence of cloned insert. Past exam: confirm sequence after ligation.' },
       { name: 'Restriction cloning', desc: 'Palindromic site → restriction enzyme cuts both strands at same site → ligate into vector with sticky/blunt ends.' },
-      { name: 'Lineweaver–Burk for glycolytic enzymes', desc: 'Hexokinase isozymes have widely different Km — high Km in glucokinase = liver/β-cell sensor.' }
+      { name: 'Lineweaver–Burk for hexokinase isozymes', desc: 'Hexokinase IV (glucokinase) has high Km (~10 mM) — used as glucose sensor in liver and pancreatic β-cells.' }
     ],
     diagrams: [
-      { title: 'Glycolysis 10 steps', visual: GlycolysisOverviewSVG },
-      { title: 'α-D-glucose Haworth', visual: HaworthGlucoseSVG },
-      { title: 'AMPK signaling', visual: AMPKLogicSVG }
+      { title: 'Glycolysis 10 steps cheatsheet', visual: GlycolysisOverviewSVG }
     ]
   },
   questions: [
     {
-      q: 'Which of these polysaccharides is most similar to chitin in solubility?',
+      q: 'Which polysaccharide is most similar to chitin in solubility?',
       choices: ['Glycogen', 'Cellulose', 'Amylopectin', 'Dextran'],
       correct: 1,
-      explanation: 'Chitin is β(1→4)-GlcNAc, fibrous, insoluble. Cellulose is β(1→4)-glucose, also fibrous and insoluble. Glycogen and amylopectin are soluble α-glucans; dextran is also α-linked.',
+      explanation: 'Chitin is β(1→4)-GlcNAc, fibrous, insoluble. Cellulose is β(1→4)-glucose, also fibrous and insoluble.',
       difficulty: 'M'
     },
     {
-      q: 'You set up a PCR with: forward and reverse primers, thermostable polymerase, template DNA, water, and pH 8.8 buffer with salts and detergent. The reaction fails. Why?',
+      q: 'You set up a PCR with: forward and reverse primers, thermostable polymerase, template, water, pH 8.8 buffer. The reaction fails. Why?',
       choices: [
         'You forgot dNTPs',
         'You forgot RNA polymerase',
@@ -488,20 +544,20 @@ const exam = {
         'Taq cannot operate at 72 °C'
       ],
       correct: 0,
-      explanation: 'Without dNTPs the polymerase has no monomers to extend with. pH 8.8 is correct for Taq; 72 °C is the optimum extension temperature.',
+      explanation: 'Without dNTPs the polymerase has no monomers to extend with.',
       difficulty: 'E'
     },
     {
-      q: 'Which sequence is BIGGER than the same size as the bacterial genome and contains a palindromic site for restriction-enzyme cloning?',
+      q: 'Which sequence is a palindromic site for restriction-enzyme cloning?',
       choices: [
-        '5′-GGATCC-3′ paired with 3′-CCTAGG-5′ (palindromic)',
-        '5′-GAATTC-3′ paired with 3′-CTTAAG-5′ (palindromic) — and the plasmid should be SMALLER than the bacterial genome',
-        'The sequence on a single strand only',
-        'Any sequence — palindromicity is irrelevant'
+        '5′-CC-GTGTGT-3′ / 3′-GG-CACACA-5′',
+        '5′-TACGGT-3′ / 3′-ATGCCA-5′',
+        '5′-GAATTC-3′ / 3′-CTTAAG-5′',
+        '5′-AAATAA-3′ / 3′-TTTATT-5′'
       ],
-      correct: 1,
-      explanation: 'EcoRI site (GAATTC) is palindromic. Plasmids should be smaller than the bacterial genome to be efficiently retained as extrachromosomal elements.',
-      difficulty: 'H'
+      correct: 2,
+      explanation: 'GAATTC reverse-complement is GAATTC — the EcoRI palindrome.',
+      difficulty: 'M'
     },
     {
       q: 'Which is NOT true of all naturally occurring dsDNA?',
@@ -512,28 +568,28 @@ const exam = {
         'A pairs with T using two H-bonds; G with C using three'
       ],
       correct: 0,
-      explanation: 'Cellular dsDNA is right-handed (B-DNA). Z-DNA exists transiently and is left-handed but is not the canonical form.',
+      explanation: 'B-DNA (cellular form) is RIGHT-handed.',
       difficulty: 'M'
     },
     {
-      q: 'For 1,3-BP-glycerate (ΔG° hydrolysis ≈ −49.4 kJ/mol) coupled to ADP → ATP (ΔG° = +30.5 kJ/mol), the overall ΔG° for "1,3-BPG + ADP → 3-PG + ATP" is approximately:',
+      q: 'For 1,3-BPG (ΔG° hydrolysis ≈ −49.4 kJ/mol) coupled to ADP → ATP (ΔG° = +30.5 kJ/mol), the overall ΔG° for "1,3-BPG + ADP → 3-PG + ATP" ≈',
       choices: ['−18.9 kJ/mol', '+18.9 kJ/mol', '−80 kJ/mol', '0'],
       correct: 0,
-      explanation: 'Sum the ΔG°s of the two half-reactions in the same direction: −49.4 + (+30.5) = −18.9 kJ/mol.',
+      explanation: 'Sum the ΔG°s: −49.4 + (+30.5) = −18.9 kJ/mol.',
       difficulty: 'M'
     },
     {
       q: 'Which step of glycolysis is the irreversible "committed" step and the most heavily regulated?',
-      choices: ['Hexokinase (step 1)', 'PFK-1 (step 3)', 'Aldolase (step 4)', 'Pyruvate kinase (step 10)'],
+      choices: ['Hexokinase', 'PFK-1', 'Aldolase', 'Pyruvate kinase'],
       correct: 1,
-      explanation: 'PFK-1 is the committed step. It is allosterically regulated by AMP/F-2,6-BP (activate) and ATP/citrate (inhibit). HK and PK are also irreversible but PFK-1 is the canonical commitment point.',
+      explanation: 'PFK-1 is the canonical commitment point. Allosterically regulated by AMP/F-2,6-BP (activate) and ATP/citrate (inhibit).',
       difficulty: 'E'
     },
     {
       q: 'Most gluconeogenesis in humans takes place in:',
       choices: ['Skeletal muscle', 'Brain', 'Liver', 'Adipose tissue'],
       correct: 2,
-      explanation: 'Liver provides ~90% of GNG; kidney handles the remainder during prolonged fasting. Muscle lacks glucose-6-phosphatase, so it cannot release free glucose.',
+      explanation: 'Liver provides ~90% of GNG; kidney handles the remainder during prolonged fasting.',
       difficulty: 'E'
     },
     {
@@ -545,7 +601,7 @@ const exam = {
         'AMPK upregulates insulin secretion'
       ],
       correct: 2,
-      explanation: 'AMPK fires when AMP rises (energy crisis). It upregulates glucose uptake (GLUT4 translocation in muscle) and FA oxidation; it inhibits glycogen, FA, and cholesterol synthesis.',
+      explanation: 'AMPK fires when AMP rises (energy crisis). It upregulates glucose uptake and FA oxidation; it inhibits glycogen, FA, and cholesterol synthesis.',
       difficulty: 'M'
     },
     {
@@ -557,33 +613,33 @@ const exam = {
         'They are encoded on the same operon'
       ],
       correct: 1,
-      explanation: 'If both ran simultaneously, the cell would build glycogen and break it down at the same time, wasting energy. Insulin/glucagon signaling phosphorylates them oppositely.',
+      explanation: 'Both running simultaneously would build and break glycogen wastefully. Insulin/glucagon signaling phosphorylates them oppositely.',
       difficulty: 'M'
     },
     {
       q: 'F-2,6-BP activates AND relieves ATP inhibition of which glycolytic enzyme?',
       choices: ['Hexokinase', 'PFK-1', 'Pyruvate kinase', 'GAPDH'],
       correct: 1,
-      explanation: 'F-2,6-BP is the most potent allosteric activator of PFK-1 — it both raises its activity at low [F6P] and overcomes inhibition by ATP.',
+      explanation: 'F-2,6-BP is the most potent allosteric activator of PFK-1 — it raises activity at low [F6P] and overcomes ATP inhibition.',
       difficulty: 'M'
     },
     {
       q: 'The four human hexokinases catalyze the same reaction; therefore...',
       choices: [
         'They have widely different standard free energies (ΔG°)',
-        'They have similar substrates and ΔG°, but different kinetic properties (Km, V, regulation)',
+        'They have similar substrates and ΔG°, but different kinetic properties',
         'They are inhibited by glucose-6-phosphate equally',
         'They differ only in their tissue distribution'
       ],
       correct: 1,
-      explanation: 'Same chemistry → same ΔG°. Isozymes differ in kinetics (e.g., HK IV / glucokinase has high Km, low Vmax — used as a glucose sensor in liver and pancreatic β-cells).',
+      explanation: 'Same chemistry → same ΔG°. Isozymes differ in kinetics — HK IV (glucokinase) has high Km, used as a glucose sensor.',
       difficulty: 'H'
     },
     {
       q: 'The ability of the body to maintain a metabolite at relatively constant concentration is called:',
       choices: ['Allostery', 'Homeostasis', 'Cooperativity', 'Catabolism'],
       correct: 1,
-      explanation: 'Homeostasis = the regulatory maintenance of internal conditions. Metabolic flux is the rate at which one is converted to the other.',
+      explanation: 'Homeostasis = regulatory maintenance of internal conditions. Metabolic flux is the rate.',
       difficulty: 'E'
     },
     {
@@ -595,7 +651,7 @@ const exam = {
         'Oxidizes it directly in mitochondria for ATP'
       ],
       correct: 0,
-      explanation: 'Liver LDH (favoring pyruvate) → pyruvate → GNG → glucose → released to blood → reused by muscle. Net cost: 6 ATP/glucose, paid by liver.',
+      explanation: 'Liver LDH (favoring pyruvate) → pyruvate → GNG → glucose → released to blood → reused by muscle. Net cost: 6 ATP/glucose.',
       difficulty: 'M'
     },
     {
@@ -607,15 +663,20 @@ const exam = {
         'ATP and pyruvate'
       ],
       correct: 1,
-      explanation: 'PPP makes NADPH (reductive biosynthesis, oxidative defense via glutathione) and ribose-5-P (nucleotide synthesis).',
+      explanation: 'PPP makes NADPH and ribose-5-P.',
       difficulty: 'E'
     },
     {
-      q: 'Which sugar is non-reducing because both its anomeric carbons are tied up in the glycosidic bond?',
-      choices: ['Maltose', 'Lactose', 'Cellobiose', 'Sucrose'],
-      correct: 3,
-      explanation: 'Sucrose: α,β-(1↔2) joins glucose-C1 and fructose-C2 — both anomeric. No free hemiacetal → no reducing aldehyde available.',
-      difficulty: 'E'
+      q: 'Sucrose is non-reducing because:',
+      choices: [
+        'Its glycosidic bond uses both anomeric carbons',
+        'It is exclusively in the α-anomeric form',
+        'It contains a sulfate group',
+        'It is too small to undergo ring opening'
+      ],
+      correct: 0,
+      explanation: 'α(1↔2) glycosidic bond ties up both anomeric carbons → no free hemiacetal → not reducing.',
+      difficulty: 'M'
     }
   ]
 };

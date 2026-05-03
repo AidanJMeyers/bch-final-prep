@@ -94,6 +94,32 @@ export function SvgFrame({ width = 460, height = 200, children, label }) {
   );
 }
 
+export function AnchorImage({ src, alt, caption, source, width }) {
+  const url = `${import.meta.env.BASE_URL}images/raw/${src}`;
+  return (
+    <figure className="my-4">
+      <img
+        src={url}
+        alt={alt}
+        loading="lazy"
+        className="rounded-lg border border-slate-200 shadow-sm bg-white max-w-full h-auto mx-auto block"
+        style={width ? { maxWidth: width } : {}}
+      />
+      {(caption || source) && (
+        <figcaption className="mt-1.5 text-xs text-slate-600 italic max-w-prose">
+          {caption}
+          {source && <span className="block not-italic text-[10px] text-slate-400 mt-0.5">Source: {source}</span>}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
+export function ImgGrid({ children, cols = 2 }) {
+  const colMap = { 2: 'md:grid-cols-2', 3: 'md:grid-cols-3' };
+  return <div className={`grid gap-4 ${colMap[cols] || colMap[2]}`}>{children}</div>;
+}
+
 export function ArrowRight({ x1, y, x2, color = '#0f172a', label, lblColor = '#475569' }) {
   return (
     <g>

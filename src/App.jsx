@@ -163,8 +163,9 @@ export default function App() {
         ) : (
           <div className="p-10 text-slate-500">Select an exam.</div>
         )}
-        <footer className="max-w-5xl mx-auto px-4 py-10 text-center text-xs text-slate-400">
-          BCH 335 final-exam study dashboard · progress saved in your browser · built by Aidan Meyers
+        <footer className="max-w-5xl mx-auto px-4 py-10 text-center text-xs text-slate-400 space-y-1">
+          <div>BCH 335 final-exam study dashboard · progress saved locally · built by Aidan Meyers</div>
+          <div className="text-[10px]">Personal study aid — not for redistribution. Lecture images are excerpts from BCH 335 course materials at TAMU-CC, used here under fair-use educational/personal-study context.</div>
         </footer>
       </main>
 

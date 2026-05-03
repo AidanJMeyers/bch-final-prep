@@ -1,114 +1,5 @@
 import React from 'react';
-import { Callout, Table, Theme, SvgFrame } from '../components/Visual.jsx';
-
-const CACSummarySVG = (
-  <SvgFrame width={460} height={290} label="CAC: 1 acetyl-CoA → 2 CO₂ + 3 NADH + 1 FADH₂ + 1 GTP. Per glucose (2 acetyl-CoAs): 4 CO₂, 6 NADH, 2 FADH₂, 2 GTP.">
-    <text x="20" y="22" fontSize="12" fill="#0f172a" fontWeight="700">Citric acid cycle (1 turn = 1 acetyl-CoA in)</text>
-    {[
-      ['1. Citrate synthase', 'Ac-CoA + OAA → citrate', 'condensation', '#0284c7'],
-      ['2. Aconitase', 'citrate → isocitrate', 'isomerization', '#475569'],
-      ['3. Isocitrate DH', 'isocitrate → α-KG', 'NAD⁺ → NADH ① + CO₂', '#16a34a'],
-      ['4. α-KG DH', 'α-KG → succinyl-CoA', 'NAD⁺ → NADH ② + CO₂', '#16a34a'],
-      ['5. Succinyl-CoA synthetase', 'succ-CoA → succinate', 'GDP → GTP (subst-lvl)', '#0284c7'],
-      ['6. Succinate DH', 'succinate → fumarate', 'FAD → FADH₂', '#dc2626'],
-      ['7. Fumarase', 'fumarate → malate', '+ H₂O', '#475569'],
-      ['8. Malate DH', 'malate → OAA', 'NAD⁺ → NADH ③', '#16a34a']
-    ].map((row, i) => (
-      <g key={i} transform={`translate(20, ${36 + i * 28})`}>
-        <text x="0" y="14" fontSize="10" fontWeight="700" fill={row[3]}>{row[0]}</text>
-        <text x="120" y="14" fontSize="10" fill="#0f172a">{row[1]}</text>
-        <text x="280" y="14" fontSize="10" fill={row[3]}>{row[2]}</text>
-      </g>
-    ))}
-    <text x="20" y="280" fontSize="10" fill="#475569">Net: 3 NADH · 1 FADH₂ · 1 GTP · 2 CO₂ per acetyl-CoA</text>
-  </SvgFrame>
-);
-
-const ETCArrangementSVG = (
-  <SvgFrame width={460} height={210} label="ETC complexes I–IV pump H⁺ across the inner membrane; complex V (ATP synthase) uses the gradient to make ATP. NADH enters at I; FADH₂ at II.">
-    <line x1="40" y1="80" x2="430" y2="80" stroke="#94a3b8" strokeWidth="2" />
-    <line x1="40" y1="160" x2="430" y2="160" stroke="#94a3b8" strokeWidth="2" />
-    <text x="6" y="55" fontSize="10" fill="#475569">IMS (+)</text>
-    <text x="6" y="180" fontSize="10" fill="#475569">matrix (−)</text>
-    {/* Complex I */}
-    <rect x="50" y="80" width="60" height="80" fill="#fef3c7" stroke="#d97706" />
-    <text x="60" y="125" fontSize="11" fill="#b45309">I</text>
-    <text x="50" y="175" fontSize="9" fill="#475569">NADH→Q</text>
-    {/* Complex II */}
-    <rect x="120" y="115" width="50" height="45" fill="#fee2e2" stroke="#dc2626" />
-    <text x="130" y="142" fontSize="11" fill="#dc2626">II</text>
-    <text x="115" y="175" fontSize="9" fill="#475569">FADH₂→Q</text>
-    {/* Q */}
-    <circle cx="190" cy="120" r="10" fill="#fde68a" stroke="#a16207" />
-    <text x="184" y="124" fontSize="10" fill="#a16207">Q</text>
-    {/* Complex III */}
-    <rect x="210" y="80" width="60" height="80" fill="#dcfce7" stroke="#16a34a" />
-    <text x="226" y="125" fontSize="11" fill="#16a34a">III</text>
-    {/* cyt c */}
-    <circle cx="290" cy="80" r="10" fill="#bae6fd" stroke="#0284c7" />
-    <text x="280" y="84" fontSize="9" fill="#0284c7">c</text>
-    {/* Complex IV */}
-    <rect x="310" y="80" width="60" height="80" fill="#e0e7ff" stroke="#4338ca" />
-    <text x="326" y="125" fontSize="11" fill="#4338ca">IV</text>
-    <text x="305" y="175" fontSize="9" fill="#475569">→ ½ O₂ → H₂O</text>
-    {/* ATP synthase */}
-    <rect x="385" y="60" width="40" height="120" fill="#fce7f3" stroke="#be185d" />
-    <text x="392" y="125" fontSize="11" fill="#be185d">V</text>
-    <text x="380" y="195" fontSize="9" fill="#475569">ATP synth.</text>
-    {/* H+ arrows */}
-    <text x="80" y="40" fontSize="11" fill="#dc2626">↑ H⁺</text>
-    <text x="240" y="40" fontSize="11" fill="#dc2626">↑ H⁺</text>
-    <text x="335" y="40" fontSize="11" fill="#dc2626">↑ H⁺</text>
-    <text x="395" y="50" fontSize="11" fill="#16a34a">H⁺ ↓</text>
-  </SvgFrame>
-);
-
-const FluidMosaicSVG = (
-  <SvgFrame width={460} height={200} label="Fluid mosaic: lipids and proteins are dynamic. Asymmetry is maintained by flippases/floppases (ATP-dependent); scramblases dissipate it (ATP-independent).">
-    <line x1="40" y1="60" x2="430" y2="60" stroke="#475569" strokeDasharray="4 3" />
-    <line x1="40" y1="140" x2="430" y2="140" stroke="#475569" strokeDasharray="4 3" />
-    {/* Lipids */}
-    {[60, 100, 140, 180, 220, 260, 300, 340, 380, 410].map((x, i) => (
-      <g key={i}>
-        <circle cx={x} cy="50" r="8" fill="#fde68a" stroke="#a16207" />
-        <line x1={x - 4} y1="58" x2={x - 4} y2="100" stroke="#a16207" strokeWidth="2" />
-        <line x1={x + 4} y1="58" x2={x + 4} y2="100" stroke="#a16207" strokeWidth="2" />
-        <line x1={x - 4} y1="100" x2={x - 4} y2="142" stroke="#a16207" strokeWidth="2" />
-        <line x1={x + 4} y1="100" x2={x + 4} y2="142" stroke="#a16207" strokeWidth="2" />
-        <circle cx={x} cy="150" r="8" fill="#fde68a" stroke="#a16207" />
-      </g>
-    ))}
-    {/* Integral protein */}
-    <rect x="180" y="40" width="60" height="120" fill="#bae6fd" stroke="#0284c7" />
-    <text x="195" y="105" fontSize="10" fill="#0284c7">integral</text>
-    {/* Peripheral */}
-    <ellipse cx="350" cy="180" rx="20" ry="10" fill="#dcfce7" stroke="#16a34a" />
-    <text x="335" y="184" fontSize="9" fill="#16a34a">peripheral</text>
-    {/* Cholesterol */}
-    <rect x="100" y="80" width="14" height="40" fill="#f3e8ff" stroke="#7c3aed" />
-    <text x="80" y="135" fontSize="9" fill="#7c3aed">chol</text>
-    <text x="20" y="190" fontSize="10" fill="#475569">Outer leaflet: PC, SM, glycolipids · Inner leaflet: PE, PS, PI</text>
-  </SvgFrame>
-);
-
-const FAOxidationSVG = (
-  <SvgFrame width={460} height={200} label="β-oxidation: each round = oxidation, hydration, oxidation, thiolysis. Loses 2 carbons (1 acetyl-CoA), 1 FADH₂, 1 NADH per round.">
-    <text x="20" y="22" fontSize="12" fill="#0f172a" fontWeight="700">β-oxidation cycle (4 steps; OHOT)</text>
-    {[
-      ['1. Oxidation', 'acyl-CoA → trans-Δ²-enoyl-CoA', 'FAD → FADH₂', '#dc2626'],
-      ['2. Hydration', 'enoyl-CoA → 3-hydroxyacyl-CoA', '+ H₂O', '#475569'],
-      ['3. Oxidation', '3-hydroxyacyl → 3-ketoacyl-CoA', 'NAD⁺ → NADH', '#16a34a'],
-      ['4. Thiolysis', '3-ketoacyl-CoA → acyl-CoA(n−2) + acetyl-CoA', '+ CoA-SH', '#0284c7']
-    ].map((row, i) => (
-      <g key={i} transform={`translate(20, ${44 + i * 30})`}>
-        <text x="0" y="14" fontSize="10" fontWeight="700" fill={row[3]}>{row[0]}</text>
-        <text x="100" y="14" fontSize="10" fill="#0f172a">{row[1]}</text>
-        <text x="300" y="14" fontSize="10" fill={row[3]}>{row[2]}</text>
-      </g>
-    ))}
-    <text x="20" y="190" fontSize="10" fill="#475569">For palmitate (16:0): 7 rounds → 8 acetyl-CoA, 7 FADH₂, 7 NADH.</text>
-  </SvgFrame>
-);
+import { Callout, Table, Theme, SvgFrame, AnchorImage, ImgGrid } from '../components/Visual.jsx';
 
 const exam = {
   id: 4,
@@ -124,7 +15,13 @@ const exam = {
           title: 'Lipid classes & defining property',
           content: (
             <>
-              <Theme>The one property all lipids share is <strong>hydrophobicity</strong>. They are NOT polymers, do NOT all carry a –COOH, do NOT all have long chains (sterols). Past exam: "Which characteristic is unique to lipids compared to other biomolecules?" → "<strong>Lipids are mostly hydrophobic.</strong>"</Theme>
+              <Theme>The one property all lipids share is <strong>hydrophobicity</strong>. They are NOT polymers, do NOT all carry a –COOH, do NOT all have long chains (sterols). Past exam: "Which characteristic is unique to lipids?" → "<strong>Lipids are mostly hydrophobic.</strong>"</Theme>
+              <AnchorImage
+                src="e4_lip_006.jpeg"
+                alt="Saturated and unsaturated fatty acid chains showing tight vs loose packing"
+                caption="Saturated FAs (left) pack tightly because their straight zig-zag chains nestle together — solid at room T (e.g., butter, lard). cis-Unsaturated FAs (right) have kinked chains that prevent dense packing — liquid at room T (oils). This single principle explains every membrane-fluidity, melting-point, and solubility question on the exam."
+                source="Lehninger fig (BCH 335 lecture, Lipids in-class)"
+              />
               <Table
                 headers={["Class", "Examples", "Role"]}
                 rows={[
@@ -135,7 +32,7 @@ const exam = {
                 ]}
               />
               <Callout kind="info" title="Why TAGs beat glycogen for storage">
-                (1) more <strong>reduced</strong> → ~9 kcal/g vs ~4 kcal/g; (2) <strong>anhydrous</strong> — no water of hydration; (3) packed densely in lipid droplets. Past exam: "Lipids are <em>more reduced</em> than carbohydrates" — TRUE; "Lipids are more chemically inert" — also true but the energetic answer is the strongest.
+                (1) more <strong>reduced</strong> → ~9 kcal/g vs ~4 kcal/g for carbs. (2) <strong>anhydrous</strong> — no water of hydration. (3) packed densely in lipid droplets. Past exam: "Lipids are <em>more reduced</em> than carbohydrates" — TRUE.
               </Callout>
             </>
           )
@@ -145,22 +42,49 @@ const exam = {
           title: 'Fatty acid nomenclature (Δ vs ω) & saturation',
           content: (
             <>
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e4_lip_001.png"
+                  alt="Structures of saturated fatty acids and unsaturated fatty acids showing zig-zag chains and cis double bonds"
+                  caption="Saturated (top) vs unsaturated (bottom) FA structures. The cis double bond introduces a ~30° kink that prevents tight packing. trans double bonds (uncommon naturally; common in partially hydrogenated oils) are nearly straight and pack like saturated."
+                  source="BCH 335 lecture (Lipids in-class)"
+                />
+                <AnchorImage
+                  src="e4_lip_013.png"
+                  alt="Omega-3 fatty acids: ALA (18:3), EPA (20:5), DHA (22:6)"
+                  caption="ω-3 essential fatty acids. ω-3 means the last double bond is 3 carbons from the methyl end. ALA (18:3, plant), EPA (20:5, fish), DHA (22:6, fish) — humans convert ALA → EPA → DHA inefficiently, so dietary fish/flax matters for brain membranes and clotting balance."
+                  source="BCH 335 lecture (Lipids in-class)"
+                />
+              </ImgGrid>
               <ul>
                 <li>FA: long-chain carboxylic acid, almost always with even number of C, almost always unbranched.</li>
-                <li><strong>Saturated</strong>: no C=C → straight, packs tightly → solid at room T (e.g., 16:0 palmitate, 18:0 stearate).</li>
-                <li><strong>Cis-unsaturated</strong>: C=C bonds kink the chain → liquid (most plant oils, fish oils).</li>
-                <li><strong>Δ-notation</strong>: counts double bonds from the COOH. Example: 18:1Δ9 = oleate, 18:3Δ9,12,15 = α-linolenate.</li>
-                <li><strong>ω-notation</strong>: counts from the methyl end. ω-3 (ALA, EPA, DHA) and ω-6 (linoleic) are <strong>essential</strong> — humans can\'t synthesize them.</li>
+                <li><strong>Saturated</strong>: no C=C → straight, packs tightly → solid at room T (palmitate 16:0, stearate 18:0).</li>
+                <li><strong>Cis-unsaturated</strong>: kinked chains → liquid (oleate 18:1Δ9, linolenate 18:3Δ9,12,15).</li>
+                <li><strong>Δ-notation</strong>: counts double bonds from –COOH. <strong>ω-notation</strong>: counts from –CH₃ end. ω-3 (ALA, EPA, DHA) and ω-6 (linoleic) are <strong>essential</strong>.</li>
               </ul>
               <Callout kind="warn" title="Past exam — incorrectly named FA">
-                "Which is incorrectly named: A) 12:0, B) 16:1Δ9, C) 20:5Δ4,6,8,12,15?" → C: a Δ4,6,... naming with <strong>conjugated 4,6 double bonds</strong> is impossible in a real FA (we count from one end and double bonds must be separated by at least one CH₂). So C — incorrectly named.
+                "Which is incorrectly named: A) 12:0, B) 16:1Δ9, C) 20:5Δ4,6,8,12,15?" → <strong>C</strong>: a "Δ4,6,..." naming has only one CH₂ between consecutive double bonds, which violates the methylene-interrupted rule (cis double bonds in real FAs must be separated by at least one CH₂).
               </Callout>
-              <Callout kind="info" title="Liquid at room T">
-                "Which FA is most likely liquid at room temperature?" → the one with the most <em>cis</em> double bonds (most kinks). 18:3Δ9,12,15 (linolenate) wins over 16:0 (palmitate, solid) and 20:0 (arachidate, solid).
+              <Callout kind="info" title="Past exam — liquid at room T">
+                "Which FA is most likely liquid at room temperature?" → most cis double bonds wins. 18:3Δ9,12,15 (linolenate) over 16:0 (palmitate, solid) and 20:0 (arachidate, solid).
               </Callout>
-              <Callout kind="info" title="Bird/plant uses">
-                "Which is most likely part of a substance birds use for waterproofing or plants for evaporation?" → A long-chain <strong>wax</strong> (e.g., long-chain ester of fatty alcohol + FA). Cuticle waxes, beeswax esters.
+              <Callout kind="info" title="Past exam — bird/plant uses">
+                "Which is most likely part of a substance birds use for waterproofing or plants for evaporation prevention?" → <strong>a long-chain wax</strong> (long-chain FA esterified to long-chain alcohol). Cuticle waxes, beeswax esters.
               </Callout>
+            </>
+          )
+        },
+        {
+          id: 'tag-storage',
+          title: 'Triacylglycerols — the storage form',
+          content: (
+            <>
+              <AnchorImage
+                src="e4_lip_023.jpeg"
+                alt="Triacylglycerol structure: glycerol esterified with three fatty acids"
+                caption="TAG: glycerol backbone (3 hydroxyls) esterified with three fatty acids. The three FA tails can be different ('mixed TAG'). Stored in lipid droplets in adipocytes — anhydrous, dense, 6× more energy per gram than glycogen. Past exam: 'Lipids are stored in the same cells with enzymes to metabolize them' is a TRUE distractor that's NOT the strongest answer."
+                source="Lehninger fig (BCH 335 lecture)"
+              />
             </>
           )
         }
@@ -175,14 +99,26 @@ const exam = {
           title: 'Fluid mosaic & lipid rafts',
           content: (
             <>
-              {FluidMosaicSVG}
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e4_mem_004.jpeg"
+                  alt="Fluid mosaic membrane model with phospholipids, cholesterol, integral and peripheral proteins"
+                  caption="Fluid mosaic model: phospholipid bilayer (yellow heads, gray tails) is fluid; integral proteins (blue) span the bilayer with hydrophobic transmembrane domains (often α-helical); peripheral proteins bind one face by polar interactions; cholesterol (orange) is wedged between phospholipid tails to modulate fluidity."
+                  source="BCH 335 lecture (Membranes)"
+                />
+                <AnchorImage
+                  src="e4_mem_007.jpeg"
+                  alt="Lipid raft microdomain rich in cholesterol, sphingolipids, and specific proteins"
+                  caption="Lipid raft: an ordered microdomain enriched in cholesterol, sphingolipids, and GPI-anchored proteins. Raft-resident proteins concentrate in these patches for signaling/trafficking. Lipid rafts CONTRADICT the strict fluid-mosaic model by being ordered."
+                />
+              </ImgGrid>
               <ul>
-                <li><strong>Cholesterol</strong> provides rigidity to plasma membranes. Past exam: "Which lipid provides rigidity to plasma membranes?" → <strong>cholesterol</strong>.</li>
-                <li><strong>Lipid rafts</strong> are ordered microdomains rich in <em>cholesterol</em>, sphingolipids, and specific proteins. Past exam: "Which is NOT TRUE about a lipid raft?" → "They are consistent with the traditional fluid-mosaic model" (FALSE — rafts contradict pure fluid-mosaic by being ordered, microdomain features). Rafts ARE dynamic, ordered, contain cholesterol, contain specific proteins.</li>
-                <li>Asymmetry: PC and SM in outer leaflet; PE, PS, PI in inner. Maintained by ATP-dependent <strong>flippases</strong> and <strong>floppases</strong>; <strong>scramblases</strong> dissipate it (ATP-independent, e.g., in apoptosis when PS flips outward).</li>
+                <li><strong>Cholesterol</strong> provides RIGIDITY to plasma membranes. Past exam: "Which lipid provides rigidity to plasma membranes?" → <strong>cholesterol</strong>.</li>
+                <li><strong>Lipid rafts</strong>: dynamic, ordered, cholesterol-rich, contain specific proteins. Past exam: "Which is NOT TRUE about a lipid raft?" → <strong>"They are consistent with the traditional fluid-mosaic model"</strong> — that's the FALSE option (rafts contradict pure fluid mosaic).</li>
+                <li>Asymmetry: PC and SM in outer leaflet; PE, PS, PI in inner. Maintained by ATP-dependent <strong>flippases / floppases</strong>. <strong>Scramblases</strong> dissipate asymmetry (ATP-independent, e.g., in apoptosis when PS flips outward).</li>
               </ul>
-              <Callout kind="info" title="Past exam — flippase/floppase/scramblase logic">
-                Lateral lipid diffusion is fast and spontaneous; <em>vertical</em> (transbilayer) flipping is NOT spontaneous because polar heads have to traverse the hydrophobic core. So flippases/floppases couple to ATP to push lipids across, and scramblases just facilitate spontaneous (slow) random equilibration.
+              <Callout kind="info" title="Past exam — flippase / floppase / scramblase logic">
+                Lateral lipid diffusion is fast and spontaneous. <em>Vertical</em> (transbilayer) flipping is NOT spontaneous — polar heads have to traverse the hydrophobic core. So flippases/floppases couple to ATP to push lipids across; scramblases facilitate spontaneous random equilibration.
               </Callout>
             </>
           )
@@ -192,14 +128,17 @@ const exam = {
           title: 'Membrane proteins: integral, peripheral, lipid-anchored',
           content: (
             <>
+              <AnchorImage
+                src="e4_mem_002.jpeg"
+                alt="Cross-section of plasma membrane showing integral, peripheral, GPI-anchored proteins, and cholesterol"
+                caption="Bilayer cross-section. Label everything: hydrophilic head groups face water; hydrophobic tails inside; integral proteins have hydrophobic transmembrane segments and hydrophilic loops outside; peripheral proteins sit on a surface (responsive to charge/polar environment); GPI-linked proteins are anchored by a lipid; cholesterol's sterol rings + hydrocarbon tail point into the bilayer; sugar chains extend into water on the outer face."
+                source="BCH 335 lecture (Membranes in-class)"
+              />
               <ul>
-                <li><strong>Integral</strong>: span the bilayer; require detergents to extract; hydrophobic transmembrane segment usually α-helical.</li>
-                <li><strong>Peripheral</strong>: bind one face by polar interactions; come off with high salt or pH change; "responsive to + or − in environment."</li>
+                <li><strong>Integral</strong>: span the bilayer; require detergents to extract; transmembrane segment usually α-helical.</li>
+                <li><strong>Peripheral</strong>: bind one face by polar interactions; come off with high salt or pH change.</li>
                 <li><strong>Lipid-anchored (GPI, palmitoyl, prenyl)</strong>: covalently linked to a lipid that inserts into one leaflet.</li>
               </ul>
-              <Callout kind="info" title="Past exam — bilayer diagram">
-                Label "hydrophilic groups and/or charged amino acids" on the integral protein\'s exterior loops, "hydrophobic anchors" inside the bilayer, "GPI-linked protein" tethered by lipid, "peripheral protein" sitting on a surface, "cholesterol" wedged between phospholipid tails, "sterol rings + hydrocarbon" pointing into the bilayer, "hydrophilic sugar chain" pointing into water.
-              </Callout>
             </>
           )
         },
@@ -209,9 +148,7 @@ const exam = {
           content: (
             <>
               <Callout kind="warn" title="Past exam — pick the TRUE statement">
-                <strong>"A patient with type O blood has enzymes that attach multiple different monosaccharides to the terminal position of their type-determining glycosphingolipids."</strong> FALSE — the type O ancestor (H antigen) lacks the enzymes that attach the type-specific terminal sugar.
-                <br />The TRUE statement: "<strong>A patient with type O blood lacks enzymes needed to attach fatty acids to sphingosine</strong>" — also FALSE; sphingolipid synthesis is intact.
-                <br />The right answer: <strong>"A patient with type B blood has the same number of monosaccharides attached to their type-determining glycosphingolipids as a patient with type A."</strong> The A and B antigens differ only in the terminal sugar (GalNAc for A, Gal for B), not the count.
+                The TRUE statement: <strong>"A patient with type B blood has the same number of monosaccharides attached to their type-determining glycosphingolipids as a patient with type A blood."</strong> The A and B antigens differ only in the TERMINAL sugar (GalNAc for A, Gal for B), not in the count. The other distractors (type O lacks enzymes to attach FAs to sphingosine; type AB makes anti-O antibodies) are FALSE.
               </Callout>
             </>
           )
@@ -228,19 +165,27 @@ const exam = {
           content: (
             <>
               <ul>
-                <li>Step 1 (cytosol): FA + CoA + ATP → acyl-CoA + AMP + 2P_i. Costs the energy of 2 ATP (because ATP → AMP).</li>
-                <li><strong>Carnitine shuttle</strong> moves long-chain acyl groups across the mitochondrial inner membrane: CPT-I (outer, regulated by malonyl-CoA), translocase, CPT-II (inner).</li>
-                <li><strong>Malonyl-CoA</strong> (the first committed metabolite of FA synthesis) inhibits CPT-I — "don\'t burn what you\'re busy making."</li>
+                <li>Step 1 (cytosol): FA + CoA + ATP → acyl-CoA + AMP + 2P_i. Costs the energy of TWO ATP equivalents (because ATP → AMP).</li>
+                <li><strong>Carnitine shuttle</strong> moves long-chain acyl groups across the inner mitochondrial membrane: CPT-I (outer) → translocase → CPT-II (inner).</li>
+                <li><strong>Malonyl-CoA</strong> (first committed metabolite of FA SYNTHESIS) inhibits CPT-I — "don't burn what you're busy making."</li>
               </ul>
             </>
           )
         },
         {
           id: 'beta-ox',
-          title: 'β-oxidation: 4 steps per round',
+          title: 'β-oxidation: 4 steps per round (mnemonic: O-H-O-T)',
           content: (
             <>
-              {FAOxidationSVG}
+              <Table
+                headers={["Step", "Reaction", "Product / cofactor"]}
+                rows={[
+                  ["1. Oxidation", "acyl-CoA → trans-Δ²-enoyl-CoA", "FAD → FADH₂"],
+                  ["2. Hydration", "enoyl-CoA → 3-hydroxyacyl-CoA", "+ H₂O across the double bond"],
+                  ["3. Oxidation", "3-hydroxyacyl-CoA → 3-ketoacyl-CoA", "NAD⁺ → NADH"],
+                  ["4. Thiolysis", "3-ketoacyl-CoA → acyl-CoA(n−2) + acetyl-CoA", "+ CoA-SH attacks β-carbon"],
+                ]}
+              />
               <Callout kind="tip" title="Energy yield from palmitate (16:0)">
                 7 rounds × (1 FADH₂ + 1 NADH) + 8 acetyl-CoA. Each acetyl-CoA → 3 NADH + 1 FADH₂ + 1 GTP via CAC. ETC: NADH ~2.5 ATP, FADH₂ ~1.5 ATP. Total ~106 ATP/palmitate (minus 2 for activation = ~104 net).
               </Callout>
@@ -254,36 +199,102 @@ const exam = {
       title: '§4 PDH & CAC — the central hub',
       blocks: [
         {
+          id: 'stage-overview',
+          title: 'The 3-stage view of fuel oxidation',
+          content: (
+            <>
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e4_cac_000.jpeg"
+                  alt="Stage 1 acetyl-CoA production from amino acids, fatty acids, and glucose via PDH and beta-oxidation"
+                  caption="Stage 1 — Acetyl-CoA production. Carbohydrates (glycolysis → pyruvate → PDH), fatty acids (β-oxidation), and ketogenic amino acids all converge on acetyl-CoA. PDH is the IRREVERSIBLE entry of carb-derived carbon into oxidation."
+                  source="Lehninger fig (BCH 335 lecture, CAC InClass)"
+                />
+                <AnchorImage
+                  src="e4_cac_011.jpeg"
+                  alt="Stage 2 acetyl-CoA oxidation through citric acid cycle producing CO2, NADH, FADH2"
+                  caption="Stage 2 — Acetyl-CoA oxidation in the CAC. The 2-carbon acetyl group enters; 2 CO₂ leave; 4 oxidation steps generate 3 NADH + 1 FADH₂; 1 substrate-level GTP. The cycle regenerates oxaloacetate, which combines with the next acetyl-CoA."
+                />
+              </ImgGrid>
+              <AnchorImage
+                src="e4_cac_022.jpeg"
+                alt="Stage 3 electron transfer chain coupled to oxidative phosphorylation"
+                caption="Stage 3 — Electron transfer & oxidative phosphorylation. NADH and FADH₂ from stages 1+2 deliver electrons to the ETC, pumping H⁺ across the inner membrane. The proton gradient drives ATP synthase to make ~26 ATP per glucose. This is the bulk of cellular ATP."
+                source="Lehninger fig (BCH 335 lecture)"
+              />
+              <Table
+                headers={['Stage', 'Location', 'Fuel in', 'Key products']}
+                rows={[
+                  ['Glycolysis', 'Cytosol', 'Glucose', '2 pyruvate, 2 ATP, 2 NADH'],
+                  ['PDH reaction', 'Mito. matrix', 'Pyruvate', 'Acetyl-CoA, CO₂, NADH'],
+                  ['Citric acid cycle', 'Mito. matrix', 'Acetyl-CoA', '2 CO₂, 3 NADH, FADH₂, GTP'],
+                  ['ETC + OxPhos', 'Inner mito. membrane', 'NADH, FADH₂, O₂', 'H₂O, ~26 ATP']
+                ]}
+              />
+            </>
+          )
+        },
+        {
           id: 'pdh',
           title: 'Pyruvate dehydrogenase complex (PDH) — bridge into CAC',
           content: (
             <>
-              <Theme>PDH is a <strong>multienzyme complex</strong> in the mitochondrial <strong>matrix</strong>. It oxidatively decarboxylates pyruvate → acetyl-CoA + CO₂ + NADH, irreversibly. Substrate channeling between E1, E2, E3 prevents loss of intermediates.</Theme>
-              <ul>
-                <li><strong>Coenzymes (5)</strong>: TPP (E1, attacks pyruvate), lipoamide (E2, accepts acetyl), CoA-SH (E2, receives acetyl), FAD (E3, oxidizes lipoamide back), NAD⁺ (E3, regenerates FAD).</li>
-                <li>Past exam matches: "TPP attacks the central carbon of pyruvate" · "NAD⁺ oxidizes FADH₂" · "CoA-SH accepts the acetyl from reduced lipoamide" · "TPP attaches and attacks the central C in pyruvate" · "FAD accepts H from reduced lipoamide".</li>
-                <li><strong>Regulation</strong>: PDH-kinase phosphorylates PDH and <em>inactivates</em> it (high ATP, NADH, acetyl-CoA → kinase ON). PDH-phosphatase removes the phosphate, activating PDH (high ADP, Ca²⁺ → phosphatase ON).</li>
-              </ul>
-              <Callout kind="info" title="Past exam — illustrating principles">
-                "Which of the following principles is NOT illustrated by PDH? A) when working in a complex, enzymes can prevent loss of products due to substrate channeling B) organisms use a few key currencies redundantly C) ATP hydrolysis is often coupled to drive unfavorable biosynthetic reactions D) higher organisms use membrane-bound organelles to control metabolism." → <strong>(C)</strong>: PDH does NOT use ATP hydrolysis to drive its reaction; it captures energy as NADH and acetyl-CoA.
+              <Theme>PDH is a <strong>multienzyme complex</strong> in the mitochondrial <strong>matrix</strong>. It oxidatively decarboxylates pyruvate → acetyl-CoA + CO₂ + NADH, irreversibly. <strong>Substrate channeling</strong> between E1, E2, E3 prevents loss of intermediates.</Theme>
+              <AnchorImage
+                src="e4_cac_013.jpeg"
+                alt="Pyruvate dehydrogenase complex reaction diagram with TPP, lipoate, FAD cofactors"
+                caption="PDH overall reaction: pyruvate + CoA-SH + NAD⁺ → acetyl-CoA + CO₂ + NADH. Three catalytic enzymes (E1, E2, E3) and FIVE cofactors (TPP on E1, lipoamide on E2, CoA-SH co-substrate, FAD on E3, NAD⁺ co-substrate). The lipoyllysine swinging arm of E2 channels the acetyl group from E1 → E2 → E3."
+                source="Lehninger fig (BCH 335 lecture)"
+              />
+              <Table
+                headers={['Cofactor', 'Vitamin source', 'Bound to', 'Role']}
+                rows={[
+                  ['TPP', 'B1 (thiamine)', 'E1 (prosthetic)', 'Decarboxylation; attacks central C of pyruvate'],
+                  ['Lipoyllysine', '(lipoic acid)', 'E2 (prosthetic)', 'Swinging arm carrier; oxidizes/reduces'],
+                  ['CoA-SH', 'B5 (pantothenate)', 'Co-substrate', 'Thiol that captures the acetyl group'],
+                  ['FAD', 'B2 (riboflavin)', 'E3 (prosthetic)', 'Re-oxidizes lipoyl disulfide'],
+                  ['NAD⁺', 'B3 (niacin)', 'Co-substrate', 'Final e⁻ acceptor → NADH']
+                ]}
+              />
+              <Callout kind="info" title="Past exam — match cofactor to direct role">
+                "TPP attaches and attacks the central C of pyruvate" · "NAD⁺ oxidizes FADH₂" · "CoA-SH accepts the acetyl from reduced lipoamide" · "FAD accepts H from reduced lipoamide".
               </Callout>
-              <Callout kind="info" title="Past exam — where is PDH?">
-                <strong>(c) in the mitochondrial matrix</strong>. Not the cytoplasm; not the membrane.
+              <Callout kind="warn" title="What PDH does NOT illustrate (past exam trap)">
+                "Which is NOT illustrated by PDH? A) substrate channeling B) redundant currencies C) ATP hydrolysis driving unfavorable biosynthetic reactions D) membrane organelles" → <strong>(C)</strong>. PDH is driven by oxidative decarboxylation; it does NOT use ATP hydrolysis.
               </Callout>
+              <Callout kind="info" title="Past exam — Where is PDH?">
+                <strong>Mitochondrial matrix.</strong> Soluble. NOT cytoplasm; NOT membrane.
+              </Callout>
+              <p><strong>Regulation</strong>: PDH-kinase phosphorylates and INACTIVATES PDH (high ATP, NADH, acetyl-CoA → kinase ON). PDH-phosphatase removes the phosphate to ACTIVATE PDH (high ADP, Ca²⁺ → phosphatase ON).</p>
             </>
           )
         },
         {
           id: 'cac-cycle',
-          title: 'Citric acid cycle — 8 reactions',
+          title: 'Citric acid cycle — 8 reactions, 4 redox steps',
           content: (
             <>
-              {CACSummarySVG}
-              <ul>
-                <li><strong>Per acetyl-CoA</strong>: 2 CO₂, 3 NADH, 1 FADH₂, 1 GTP (or ATP), 0 net OAA (regenerates).</li>
-                <li><strong>Per glucose</strong>: 4 CO₂, 6 NADH, 2 FADH₂, 2 GTP, 2 acetyl-CoA used.</li>
-                <li><strong>Number of redox steps between pyruvate → end of one CAC turn</strong>: count NADH/FADH₂-producing steps. Pyruvate → acetyl-CoA = 1 (NADH). Inside CAC: ICDH (NADH), αKG-DH (NADH), succinate-DH (FADH₂), malate-DH (NADH) = 4. Total = <strong>5</strong>. Past exam says "<strong>4</strong> redox reactions between pyruvate and one turn of CAC" — this depends on whether you include the PDH step. The exam answer was <strong>4</strong> (counting only inside CAC).</li>
-              </ul>
+              <AnchorImage
+                src="e4_cac_020.jpeg"
+                alt="Complete citric acid cycle showing all 8 enzymes, intermediates, and energy yield"
+                caption="One CAC turn: acetyl-CoA + OAA → citrate (citrate synthase, condensation, ΔG° = −32.2 kJ/mol — irreversible). Citrate → isocitrate (aconitase, isomerization). Isocitrate → α-KG + CO₂ + NADH (ICDH, REDOX, irreversible). α-KG → succinyl-CoA + CO₂ + NADH (αKG-DH, REDOX, irreversible). Succinyl-CoA → succinate + GTP (substrate-level phosphorylation). Succinate → fumarate + FADH₂ (succinate DH/Complex II, REDOX). Fumarate → malate (fumarase, hydration). Malate → OAA + NADH (MDH, REDOX). Net: 3 NADH + 1 FADH₂ + 1 GTP + 2 CO₂ per acetyl-CoA."
+                source="Lehninger fig (BCH 335 lecture)"
+              />
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e4_cac_005.jpeg"
+                  alt="Citrate synthase mechanism showing acetyl-CoA condensation with oxaloacetate"
+                  caption="Citrate synthase mechanism: Asp acts as base to deprotonate the methyl carbon of acetyl-CoA → enolate intermediate → attacks the carbonyl C of OAA → citroyl-CoA → hydrolysis releases citrate + CoA-SH. ΔG° = −32.2 kJ/mol → irreversible. Heavily regulated (inhibited by ATP, NADH, succinyl-CoA, citrate)."
+                />
+                <AnchorImage
+                  src="e4_cac_012.jpeg"
+                  alt="Alpha-ketoglutarate dehydrogenase complex reaction"
+                  caption="α-KG dehydrogenase complex: structurally analogous to PDH (same E1/E2/E3 architecture; same five cofactors). αKG + NAD⁺ + CoA-SH → succinyl-CoA + CO₂ + NADH. Heavily regulated by NADH, succinyl-CoA, ATP (product inhibition + energy charge sensing)."
+                />
+              </ImgGrid>
+              <Callout kind="info" title="Past exam — number of redox reactions">
+                "How many redox reactions occur between pyruvate and one turn of CAC?" → counting only INSIDE the CAC: ICDH (NADH), αKG-DH (NADH), succinate-DH (FADH₂), MDH (NADH) = <strong>4</strong>. (If you include PDH, it's 5.)
+              </Callout>
             </>
           )
         },
@@ -292,6 +303,12 @@ const exam = {
           title: 'CAC regulation — three control points',
           content: (
             <>
+              <AnchorImage
+                src="e4_cac_023.jpeg"
+                alt="CAC regulation diagram showing activators and inhibitors at citrate synthase, isocitrate DH, and alpha-ketoglutarate DH"
+                caption="CAC regulation summary. Three irreversible/regulated steps: citrate synthase (inhibited by ATP, NADH, succinyl-CoA, citrate; activated by ADP, OAA), isocitrate DH (activated by ADP, Ca²⁺; inhibited by ATP, NADH), αKG-DH (activated by Ca²⁺; inhibited by succinyl-CoA, NADH, ATP). Pattern: high energy charge → cycle slows; high Ca²⁺ (workload signal) → cycle speeds up."
+                source="Lehninger fig (BCH 335 lecture)"
+              />
               <Table
                 headers={["Enzyme", "Activator", "Inhibitor"]}
                 rows={[
@@ -301,27 +318,31 @@ const exam = {
                 ]}
               />
               <Callout kind="info" title="Past exam — flux example">
-                "How would CAC respond to a rapid increase in [NADH]/[NAD⁺] in the matrix?" → <strong>CAC would slow down</strong> (NADH inhibits ICDH and α-KGDH; ETC backs up → CAC backs up).
+                "How would CAC respond to a rapid increase in [NADH]/[NAD⁺]?" → <strong>CAC would slow down</strong>. NADH allosterically inhibits ICDH and αKG-DH; less NAD⁺ available for the dehydrogenases.
               </Callout>
               <Callout kind="warn" title="Anaplerotic vs cataplerotic">
-                Anaplerotic: replenishes CAC intermediates (e.g., pyruvate carboxylase: pyruvate → OAA; transamination of glutamate → α-KG). Cataplerotic: removes intermediates for biosynthesis (citrate → cytosolic Ac-CoA for FA synthesis; α-KG / OAA → AAs).
+                Anaplerotic = REPLENISHES CAC intermediates (pyruvate carboxylase: pyruvate → OAA; transamination of glutamate → α-KG). Cataplerotic = REMOVES intermediates for biosynthesis (citrate → cytosolic Ac-CoA for FA synthesis; α-KG / OAA → AAs).
               </Callout>
               <Callout kind="info" title="Past exam — radio-labeled C tracking">
-                "Oxaloacetate uniformly labeled with ¹⁴C condenses with unlabeled acetyl-CoA. After ONE pass of CAC back to OAA, what fraction of original radioactivity remains in OAA?" → <strong>1/2</strong>. Reason: CAC releases 2 CO₂ from the 6-carbon citrate, but the released carbons come from the OAA pool half the time due to symmetry of succinate (a symmetric intermediate). So half the original radioactivity remains.
+                "OAA uniformly labeled with ¹⁴C condenses with unlabeled acetyl-CoA. After ONE pass of CAC back to OAA, what fraction of original radioactivity remains in OAA?" → <strong>1/2</strong>. CAC releases 2 CO₂ from the 6-carbon citrate, but because succinate is a SYMMETRIC molecule, half the released CO₂ comes from the original OAA carbons. So half remains.
               </Callout>
             </>
           )
         },
         {
-          id: 'cac-irreg',
+          id: 'cac-discriminators',
           title: 'CAC misconceptions / past-exam discriminators',
           content: (
             <>
               <Callout kind="info" title="Common past-exam discriminators">
                 <ul>
-                  <li>"Which is a redox reaction in the CAC?" → <strong>dehydrogenation</strong> (e.g., succinate DH; NOT isomerization, NOT substrate-level phosphorylation, NOT Claisen condensation).</li>
-                  <li>"Which is NOT TRUE of citrate synthase?" → <strong>"Binding of OAA to citrate synthase causes a conformational change"</strong> is TRUE. The FALSE option is "the induced fit ensures the enzyme is most active when oxaloacetate levels are LOW" — actually most active when OAA is HIGH.</li>
-                  <li>"Malonate is a competitive inhibitor of <strong>succinate dehydrogenase</strong>." If added during pyruvate oxidation, what accumulates? → <strong>succinate</strong> (the substrate of the blocked enzyme).</li>
+                  <li>"Which is a redox reaction in the CAC?" → <strong>dehydrogenation</strong>. NOT isomerization, NOT substrate-level phosphorylation, NOT Claisen condensation.</li>
+                  <li>"Which is NOT TRUE of citrate synthase?" → <strong>"the induced fit ensures the enzyme is most active when OAA levels are LOW"</strong>. Induced fit makes the enzyme active when OAA is HIGH.</li>
+                  <li>"Malonate is a competitive inhibitor of <strong>succinate dehydrogenase</strong>." If added, what accumulates? → <strong>succinate</strong> (substrate of the blocked enzyme).</li>
+                  <li>"In what molecule do the carbons of acetyl-CoA end up FULLY OXIDIZED?" → <strong>CO₂</strong>.</li>
+                  <li>"Which functional group captures an acetyl group to make acetyl-CoA?" → <strong>thiol</strong> (–SH on CoA).</li>
+                  <li>"Calcium ions ___ the citric acid cycle." → <strong>STIMULATE</strong> (Ca²⁺ activates ICDH and α-KGDH).</li>
+                  <li>"PDH is allosterically ___ when ADP levels are LOW." → <strong>INHIBITED</strong> (low ADP = high ATP → PDH-kinase ON → PDH inactive).</li>
                 </ul>
               </Callout>
             </>
@@ -338,21 +359,35 @@ const exam = {
           title: 'ETC complexes I–IV',
           content: (
             <>
-              {ETCArrangementSVG}
+              <AnchorImage
+                src="e4_etc_006.jpeg"
+                alt="Electron transport chain showing complexes I, II, III, IV in inner mitochondrial membrane"
+                caption="Full ETC arrangement (intermembrane space ABOVE, matrix BELOW). Electrons flow from NADH (Complex I) and FADH₂ (Complex II/succinate DH) through ubiquinone (Q) → Complex III → cytochrome c → Complex IV → ½ O₂ → H₂O. Complexes I, III, and IV pump H⁺ across the inner membrane. Complex II does NOT pump H⁺ — that's why FADH₂ yields fewer ATP than NADH."
+                source="Lehninger fig (BCH 335 lecture, ETC)"
+              />
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e4_etc_001.jpeg"
+                  alt="Complex I structure showing membrane arm, matrix arm, FMN, and Fe-S clusters"
+                  caption="Complex I (NADH:Q oxidoreductase): the largest complex. Two arms — one membrane-embedded (proton pumping), one matrix-protruding (where NADH binds and electrons enter via FMN, then a series of Fe-S clusters). Each NADH oxidized → 4 H⁺ pumped."
+                />
+                <AnchorImage
+                  src="e4_etc_002.jpeg"
+                  alt="Ubiquinone, semiquinone radical, and ubiquinol redox states"
+                  caption="Ubiquinone (Q) is a small lipid-soluble e⁻ carrier in the inner membrane. Cycles among Q (oxidized) ↔ semiquinone (·QH) ↔ QH₂ (ubiquinol, fully reduced). Carries 2e⁻ + 2H⁺ at a time."
+                />
+              </ImgGrid>
               <Table
                 headers={["Complex", "Reaction", "Pumps H⁺?"]}
                 rows={[
-                  ["I (NADH-Q oxidoreductase)", "NADH → Q · QH₂", "yes (4 H⁺)"],
-                  ["II (Succinate-Q reductase)", "FADH₂ → Q · QH₂", "no"],
+                  ["I (NADH:Q oxidoreductase)", "NADH → Q · QH₂", "yes (4 H⁺)"],
+                  ["II (Succinate:Q reductase = succinate DH)", "FADH₂ → Q · QH₂", "NO"],
                   ["III (Q-cyt c oxidoreductase)", "QH₂ → cyt c (Q-cycle)", "yes (4 H⁺ net)"],
                   ["IV (cyt c oxidase)", "cyt c → ½O₂ → H₂O", "yes (2 H⁺)"]
                 ]}
               />
               <Callout kind="info" title="Past exam — electron carriers">
-                "When electrons are collected by the citric acid cycle in the acetyl group of acetyl-CoA and up fully oxidized: what carriers deliver them to ETC?" → <strong>NADH and FADH₂</strong>. NADH from PDH, ICDH, αKG-DH, MDH; FADH₂ from succinate DH (and from β-oxidation).
-              </Callout>
-              <Callout kind="info" title="Past exam — Are ALL Q reductase enzymes regulated identically?">
-                Complex II is also part of CAC (succinate DH), so it is NOT pumping H⁺; the others (I, III, IV) do pump.
+                "When CAC electrons are collected and fully oxidized, which carriers deliver them to the ETC?" → <strong>NADH and FADH₂</strong>. NADH (PDH, ICDH, αKG-DH, MDH) → Complex I; FADH₂ (succinate DH, β-oxidation) → Complex II.
               </Callout>
             </>
           )
@@ -362,14 +397,26 @@ const exam = {
           title: 'ATP synthase (Complex V) — the rotary motor',
           content: (
             <>
+              <ImgGrid cols={2}>
+                <AnchorImage
+                  src="e4_etc_017.jpeg"
+                  alt="ATP synthase F1 head top view showing alpha and beta subunits with binding states"
+                  caption="ATP synthase F₁ (top view). Three β catalytic subunits cycle through three conformations as the central γ-stalk rotates: O (open, binds ADP+Pi), L (loose, holds them), T (tight, makes ATP). One full γ rotation produces 3 ATP."
+                  source="Lehninger fig (BCH 335 lecture, ATP synthesis)"
+                />
+                <AnchorImage
+                  src="e4_etc_018.jpeg"
+                  alt="ATP synthase rotary mechanism with binding-change model"
+                  caption="Binding-change model. As H⁺ flows through F₀ down its electrochemical gradient, the c-ring + γ-stalk rotates; each rotation step forces the β subunits through O→L→T conformational cycle, releasing one ATP per 120° step. ~3 H⁺ per ATP synthesized; with proton transport into the matrix for Pi, ~4 H⁺/ATP total."
+                />
+              </ImgGrid>
               <ul>
-                <li>F₀ part: membrane-embedded, c-ring rotates as H⁺ flows down its electrochemical gradient.</li>
-                <li>F₁ part: 3 αβ catalytic sites cycle through L (loose), T (tight, makes ATP), O (open, releases ATP) conformations as the γ subunit rotates.</li>
-                <li>~3 H⁺ flow per ATP synthesized; with proton transport, ~4 H⁺/ATP total.</li>
-                <li>Coupling: NADH → ~2.5 ATP; FADH₂ → ~1.5 ATP.</li>
+                <li>F₀ is membrane-embedded; the c-ring rotates as H⁺ flows.</li>
+                <li>F₁ is the catalytic head with 3 αβ pairs.</li>
+                <li>NADH → ~2.5 ATP. FADH₂ → ~1.5 ATP.</li>
               </ul>
               <Callout kind="tip" title="Uncouplers (DNP, thermogenin/UCP1)">
-                Uncouplers carry H⁺ across the inner membrane, dissipating the proton gradient as heat. Brown adipose tissue uses UCP1 for non-shivering thermogenesis. ATP synthesis stops; oxygen consumption skyrockets.
+                Uncouplers carry H⁺ across the inner membrane, dissipating the proton gradient as HEAT. ATP synthesis stops; oxygen consumption skyrockets. Brown adipose tissue uses UCP1 for non-shivering thermogenesis. DNP was an obesity drug in the 1930s — fatal at high doses.
               </Callout>
             </>
           )
@@ -379,13 +426,11 @@ const exam = {
           title: 'OxPhos quick discriminators',
           content: (
             <>
-              <Callout kind="info" title="Past exam — anaplerotic / catabolism / etc">
+              <Callout kind="info" title="Past-exam quick discriminators">
                 <ul>
-                  <li>"Which is true regarding anaplerotic reactions?" → <strong>"They can replenish CAC intermediates using non-CAC enzymes."</strong></li>
-                  <li>"Which is true regarding the role of CAC in anabolism?" → <strong>"All of the above"</strong> — CAC intermediates can be used to make FAs and sterols, diverse AAs, and neurotransmitters.</li>
-                  <li>"Which functional group captures an acetyl group to make acetyl-CoA?" → <strong>thiol</strong> (SH on CoA).</li>
-                  <li>"Calcium ions ___ the citric acid cycle." → <strong>STIMULATE</strong> (Ca²⁺ activates ICDH and α-KGDH).</li>
-                  <li>"PDH is allosterically <em>inhibited</em>/<em>activated</em>/<em>unaffected</em> when ADP levels are LOW." → <strong>INHIBITED</strong> (because if ADP is low, ATP is high → PDH-kinase ON → PDH inactive).</li>
+                  <li>"Which is true regarding ANAPLEROTIC reactions?" → <strong>"They can replenish CAC intermediates using non-CAC enzymes."</strong></li>
+                  <li>"Which is true regarding the role of CAC in anabolism?" → <strong>"All of the above"</strong> — CAC intermediates make FAs/sterols, AAs, neurotransmitters.</li>
+                  <li>"Which complex of the ETC does NOT pump H⁺?" → <strong>Complex II</strong>.</li>
                 </ul>
               </Callout>
             </>
@@ -396,7 +441,7 @@ const exam = {
   ],
   keyReview: {
     themes: [
-      { title: 'Reduction = energy', desc: 'Lipids store more energy than carbs because they\'re more reduced. Oxidation in CAC + ETC harvests reducing power as NADH/FADH₂ and converts it into ATP via the proton gradient.' },
+      { title: 'Reduction = energy', desc: 'Lipids store more energy than carbs because they\'re more reduced. Oxidation in CAC + ETC harvests reducing power as NADH/FADH₂ and converts it to ATP via the proton gradient.' },
       { title: 'Compartmentalization is regulation', desc: 'Glycolysis (cytosol) → pyruvate → mito (PDH, CAC, ETC). Carnitine shuttle controls FA entry. Malonyl-CoA blocks β-oxidation when FA synthesis is on.' },
       { title: 'Substrate-level vs oxidative phosphorylation', desc: 'Substrate-level: PGK, PK in glycolysis; succinyl-CoA synthetase in CAC. OxPhos: ATP synthase using H⁺ gradient.' },
       { title: 'Common control logic — energy charge', desc: 'High ATP / NADH / acetyl-CoA → catabolism off (PDH inactive, CAC throttled). High ADP / AMP / Ca²⁺ → catabolism on.' },
@@ -416,19 +461,14 @@ const exam = {
     laws: [
       { name: 'Mitchell\'s chemiosmotic hypothesis', desc: 'ETC pumps H⁺ creating an electrochemical gradient; ATP synthase uses gradient to phosphorylate ADP.' },
       { name: 'Compartmentation rule', desc: 'PDH, CAC, ETC, β-oxidation are all in mitochondria; FA synthesis and PPP are cytosolic.' },
-      { name: 'Energy charge rule', desc: 'High ATP/ADP+AMP shuts down catabolism, ramps up biosynthesis; low charge → opposite.' }
+      { name: 'Energy charge rule', desc: 'High ATP/(ADP+AMP) shuts down catabolism, ramps up biosynthesis; low charge → opposite.' }
     ],
     methods: [
       { name: 'Radio-tracing', desc: '¹⁴C-labeling tells you which carbons survive a metabolic round; classic CAC question (1/2 of original after one turn).' },
       { name: 'Inhibitor probing', desc: 'Malonate blocks succinate DH → succinate accumulates. Rotenone blocks Complex I.' },
       { name: 'Detergent lysis', desc: 'Extracts integral membrane proteins by disrupting hydrophobic interactions.' }
     ],
-    diagrams: [
-      { title: 'CAC at a glance', visual: CACSummarySVG },
-      { title: 'ETC arrangement', visual: ETCArrangementSVG },
-      { title: 'β-oxidation 4 steps', visual: FAOxidationSVG },
-      { title: 'Fluid mosaic membrane', visual: FluidMosaicSVG }
-    ]
+    diagrams: []
   },
   questions: [
     {
@@ -440,15 +480,15 @@ const exam = {
         'Lipids are polymers'
       ],
       correct: 2,
-      explanation: 'Lipids are defined by hydrophobicity, not by a polymer backbone. They are not polymers.',
+      explanation: 'Lipids are defined by hydrophobicity. They are not polymers.',
       difficulty: 'E'
     },
     {
       q: 'A reason fats are better than carbs for long-term energy storage:',
       choices: [
         'Lipids are more oxidized than carbohydrates',
-        'Lipids are stored in the same cells that have the enzymes to metabolize them',
-        'Lipids are more chemically reduced (yield more ATP per gram on oxidation) AND store anhydrously',
+        'Lipids are stored in the same cells with the metabolizing enzymes',
+        'Lipids are more chemically reduced AND store anhydrously',
         'Lipids freeze in the liver more easily than glycogen'
       ],
       correct: 2,
@@ -459,124 +499,129 @@ const exam = {
       q: 'Which fatty acid is most likely LIQUID at room temperature?',
       choices: ['16:0 (palmitate)', '18:0 (stearate)', '18:3Δ9,12,15 (α-linolenate)', '20:0 (arachidate)'],
       correct: 2,
-      explanation: 'Cis double bonds kink the chain → can\'t pack → low melting point → liquid at room T. α-linolenate has 3 cis double bonds.',
+      explanation: 'Cis double bonds kink the chain → can\'t pack → low melting point. α-linolenate has 3 cis double bonds.',
       difficulty: 'E'
     },
     {
       q: 'A plasma membrane is given rigidity primarily by:',
       choices: ['Cholesterol', 'Triacylglycerols', 'GPI-anchored proteins', 'PIP₂ in inner leaflet'],
       correct: 0,
-      explanation: 'Cholesterol stiffens fluid bilayers (and fluidizes very ordered ones at low T). It is NOT in TAGs (those are storage); not in GPI; PIP₂ is signaling.',
+      explanation: 'Cholesterol modulates membrane fluidity and provides rigidity.',
       difficulty: 'E'
     },
     {
       q: 'Which is NOT TRUE of a lipid raft?',
       choices: [
-        'They are dynamic (ever-changing)',
+        'They are dynamic',
         'They are an ordered microdomain of plasma membranes',
         'They have a relatively high concentration of cholesterol',
         'They include specific proteins',
         'They are consistent with the traditional fluid-mosaic model of membrane structure'
       ],
       correct: 4,
-      explanation: 'Rafts contradict the pure fluid-mosaic model by being ORDERED microdomains. Everything else is true.',
+      explanation: 'Rafts are ORDERED microdomains, contradicting the pure fluid-mosaic model.',
       difficulty: 'M'
     },
     {
       q: 'Which is NOT illustrated by the pyruvate dehydrogenase complex?',
       choices: [
-        'When working in a complex, enzymes can prevent loss of products to substrate channeling',
-        'Organisms use a few key currencies redundantly between pathways (NAD⁺)',
-        'ATP hydrolysis is often coupled to drive unfavorable biosynthetic reactions',
-        'Higher organisms use membrane-bound organelles to control metabolism'
+        'Substrate channeling between active sites',
+        'Use of redundant currencies (NAD⁺) between pathways',
+        'ATP hydrolysis coupled to drive an unfavorable reaction',
+        'Mitochondrial localization'
       ],
       correct: 2,
-      explanation: 'PDH does not use ATP hydrolysis to drive its reaction; it captures energy from oxidation in NADH and acetyl-CoA. The other three are illustrated.',
+      explanation: 'PDH does not use ATP hydrolysis. It captures energy as NADH and acetyl-CoA via oxidative decarboxylation.',
       difficulty: 'M'
     },
     {
       q: 'Where in a eukaryotic cell is the PDH complex located?',
       choices: ['Cytoplasm', 'Mitochondrial intermembrane space', 'Mitochondrial matrix', 'Inner mitochondrial membrane'],
       correct: 2,
-      explanation: 'PDH lives in the matrix, where it has access to incoming pyruvate (via pyruvate carrier) and the CAC enzymes.',
+      explanation: 'PDH is a soluble matrix complex.',
       difficulty: 'E'
     },
     {
       q: 'Which is a redox reaction in the citric acid cycle?',
-      choices: ['Isomerization by dehydration/rehydration', 'Substrate-level phosphorylation', 'Claisen condensation', 'Dehydrogenation'],
+      choices: [
+        'Isomerization by dehydration/rehydration',
+        'Substrate-level phosphorylation',
+        'Claisen condensation',
+        'Dehydrogenation'
+      ],
       correct: 3,
-      explanation: 'Dehydrogenations (ICDH, αKG-DH, succinate-DH, malate-DH) are the redox steps. Aconitase is isomerization; SCS is substrate-level phosphorylation; citrate synthase is a Claisen condensation.',
+      explanation: 'Dehydrogenations (ICDH, αKG-DH, succinate-DH, malate-DH) are the redox steps.',
       difficulty: 'E'
     },
     {
-      q: 'Oxaloacetate uniformly ¹⁴C-labeled condenses with unlabeled acetyl-CoA. After ONE pass of CAC, what fraction of the original ¹⁴C remains in OAA?',
+      q: 'OAA uniformly ¹⁴C-labeled condenses with unlabeled acetyl-CoA. After ONE pass of CAC, what fraction of the original ¹⁴C remains in OAA?',
       choices: ['all', '1/2', '1/3', '1/4', 'none'],
       correct: 1,
-      explanation: 'Two carbons leave as CO₂ at ICDH and αKG-DH. Because succinate is symmetric, half the released CO₂ comes from the original OAA carbons. Net: half of the original label remains in OAA.',
+      explanation: 'CAC releases 2 CO₂ per turn; succinate is symmetric, so half the released CO₂ comes from the original OAA carbons.',
       difficulty: 'H'
     },
     {
       q: 'Malonate is a competitive inhibitor of succinate dehydrogenase. If added during isolated mitochondrial pyruvate oxidation, which intermediate accumulates?',
-      choices: ['Succinate', 'Succinate dehydrogenase (it builds up)', 'Fumarate', 'FADH₂'],
+      choices: ['Succinate', 'Succinate dehydrogenase', 'Fumarate', 'FADH₂'],
       correct: 0,
-      explanation: 'Block the enzyme → its substrate (succinate) accumulates upstream. Fumarate and downstream metabolites would decrease.',
+      explanation: 'Block the enzyme → its substrate (succinate) accumulates upstream.',
       difficulty: 'M'
     },
     {
       q: 'Which is NOT TRUE about citrate synthase function?',
       choices: [
-        'Binding of oxaloacetate causes a conformational change',
-        'The induced fit of citrate synthase ensures it is most active when oxaloacetate is LOW',
-        'Citrate synthase catalyzes a condensation reaction',
-        'Acetyl-CoA cannot bind citrate synthase until OAA has induced a conformational change'
+        'OAA binding causes a conformational change',
+        'The induced fit ensures the enzyme is most active when OAA is LOW',
+        'It catalyzes a condensation reaction',
+        'Acetyl-CoA cannot bind until OAA has induced a conformational change'
       ],
       correct: 1,
-      explanation: 'Induced fit makes the enzyme most active when its substrate (OAA) is HIGH — that\'s when the active site closes correctly. The other three are accurate.',
+      explanation: 'Induced fit makes the enzyme most active when OAA is HIGH.',
       difficulty: 'M'
     },
     {
       q: 'Which is TRUE regarding ANAPLEROTIC reactions?',
       choices: [
         'They can replenish CAC intermediates using non-CAC enzymes',
-        'They produce glutamate by transamination of α-ketoglutarate in all tissues',
-        'They require enzymes that are essential in all tissues',
-        'They produce pyruvate to maintain constant CAC intermediate levels'
+        'They produce glutamate by transamination of α-KG in all tissues',
+        'They require enzymes essential in all tissues',
+        'They produce pyruvate to maintain CAC intermediate levels'
       ],
       correct: 0,
-      explanation: 'Anaplerosis: pyruvate → OAA via pyruvate carboxylase, glutamate → α-KG via transamination, etc. It refills CAC intermediates from non-CAC sources.',
+      explanation: 'Anaplerosis = non-CAC reactions that refill CAC intermediates (e.g., pyruvate carboxylase: pyruvate → OAA).',
       difficulty: 'M'
     },
     {
-      q: 'How does CAC respond to a rapid INCREASE in [NADH]/[NAD⁺] in the matrix?',
+      q: 'How would CAC respond to a rapid INCREASE in [NADH]/[NAD⁺] in the matrix?',
       choices: [
         'CAC rate would not change',
         'CAC rate would have decreased flux (slow down)',
         'CAC would speed up to consume the NADH',
-        'CAC would slow down only because there is no NAD⁺ left'
+        'CAC would slow only because there is no NAD⁺ left'
       ],
       correct: 1,
-      explanation: 'Both effects: NADH allosterically inhibits ICDH and α-KGDH, AND there is less NAD⁺ available for the dehydrogenases. CAC slows.',
+      explanation: 'Both effects: NADH allosterically inhibits ICDH and αKG-DH AND there is less NAD⁺ for the dehydrogenases.',
       difficulty: 'M'
     },
     {
       q: 'Which functional group captures an acetyl group to make acetyl-CoA?',
       choices: ['hydroxyl', 'carboxyl', 'thiol (–SH)', 'amine'],
       correct: 2,
-      explanation: 'CoA has a free –SH on its β-mercaptoethylamine arm. The thioester acetyl-CoA is high-energy because thioesters are less resonance-stabilized than oxoesters.',
+      explanation: 'CoA has a free –SH on its β-mercaptoethylamine arm. The thioester is high-energy.',
       difficulty: 'E'
     },
     {
       q: 'Calcium ions ___ the citric acid cycle.',
       choices: ['Stimulate', 'Inhibit', 'Play no role in', 'Only act on PDH'],
       correct: 0,
-      explanation: 'Ca²⁺ activates isocitrate DH and α-KG DH (and PDH-phosphatase). Mitochondrial Ca²⁺ rises with workload → CAC speeds up.',
+      explanation: 'Ca²⁺ activates ICDH and αKG-DH (and PDH-phosphatase).',
       difficulty: 'E'
     },
     {
       q: 'PDH is allosterically ___ when ADP levels are LOW.',
       choices: ['Inhibited', 'Activated', 'Unaffected', 'Reset to baseline'],
       correct: 0,
-      explanation: 'Low ADP → high ATP → PDH-kinase active → phosphorylates and inactivates PDH. PDH is inhibited.',
+      explanation: 'Low ADP → high ATP → PDH-kinase active → phosphorylates and inactivates PDH.',
       difficulty: 'M'
     },
     {
@@ -590,26 +635,26 @@ const exam = {
       q: 'Which is a vesicle as opposed to a micelle?',
       choices: [
         'Single layer of amphipathic molecules around an aqueous interior',
-        'Bilayer arrangement enclosing an aqueous interior',
+        'Bilayer enclosing an aqueous interior',
         'Random aggregate of triacylglycerols',
         'Pure cholesterol crystal'
       ],
       correct: 1,
-      explanation: 'Vesicle = bilayer enclosing water. Micelle = single layer with hydrophobic tails inside, no aqueous interior. Both form spontaneously to minimize hydrophobic exposure to water.',
+      explanation: 'Vesicle = bilayer enclosing water. Micelle = single layer with hydrophobic tails inside, no aqueous interior.',
       difficulty: 'E'
     },
     {
       q: 'For palmitate (16:0), how many ROUNDS of β-oxidation are required?',
       choices: ['8', '7', '16', '4'],
       correct: 1,
-      explanation: 'Each round removes 2 carbons. From 16 → need 7 rounds to make 8 acetyl-CoA (the last round produces 2 acetyl-CoAs from a 4-carbon intermediate).',
+      explanation: 'Each round removes 2 carbons. 16 → need 7 rounds; the last round produces 2 acetyl-CoAs from a 4-carbon intermediate.',
       difficulty: 'M'
     },
     {
-      q: 'Which complex of the ETC does NOT pump protons across the inner mitochondrial membrane?',
+      q: 'Which complex of the ETC does NOT pump protons?',
       choices: ['I', 'II', 'III', 'IV'],
       correct: 1,
-      explanation: 'Complex II (succinate-Q reductase = succinate DH) does not pump H⁺. Therefore FADH₂ entering at II yields fewer ATP than NADH entering at I.',
+      explanation: 'Complex II (succinate-Q reductase = succinate DH) does not pump H⁺. Therefore FADH₂ entering at II yields fewer ATP than NADH at I.',
       difficulty: 'E'
     }
   ]
