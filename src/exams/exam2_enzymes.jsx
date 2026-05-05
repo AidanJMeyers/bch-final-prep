@@ -33,34 +33,12 @@ const LBPlotSVG = (
 );
 
 const InhibitorLBSVG = (
-  <SvgFrame width={460} height={250} label="LB inhibitor signatures. Competitive: same y-int (Vmax unchanged), worse Km. Uncompetitive: parallel lines. Pure noncompetitive: same x-int (Km unchanged), lower Vmax.">
-    <text x="20" y="30" fontSize="12" fill="#0f172a">Three patterns on Lineweaver–Burk</text>
-    <g transform="translate(20,50)">
-      <text x="0" y="10" fontSize="11" fill="#475569">Competitive</text>
-      <line x1="60" y1="0" x2="60" y2="120" stroke="#475569" />
-      <line x1="0" y1="100" x2="140" y2="100" stroke="#475569" />
-      <line x1="20" y1="120" x2="135" y2="40" stroke="#0284c7" strokeWidth="2" />
-      <line x1="35" y1="120" x2="135" y2="55" stroke="#dc2626" strokeWidth="2" strokeDasharray="3 2" />
-      <circle cx="60" cy="78" r="3" fill="#16a34a" />
-      <text x="0" y="135" fontSize="9" fill="#475569">same Vmax · ↑Km</text>
-    </g>
-    <g transform="translate(170,50)">
-      <text x="0" y="10" fontSize="11" fill="#475569">Uncompetitive</text>
-      <line x1="60" y1="0" x2="60" y2="120" stroke="#475569" />
-      <line x1="0" y1="100" x2="140" y2="100" stroke="#475569" />
-      <line x1="10" y1="115" x2="135" y2="40" stroke="#0284c7" strokeWidth="2" />
-      <line x1="20" y1="115" x2="145" y2="40" stroke="#dc2626" strokeWidth="2" strokeDasharray="3 2" />
-      <text x="0" y="135" fontSize="9" fill="#475569">parallel · both ↓ same factor</text>
-    </g>
-    <g transform="translate(320,50)">
-      <text x="0" y="10" fontSize="11" fill="#475569">Pure Noncomp.</text>
-      <line x1="60" y1="0" x2="60" y2="120" stroke="#475569" />
-      <line x1="0" y1="100" x2="140" y2="100" stroke="#475569" />
-      <line x1="20" y1="120" x2="135" y2="40" stroke="#0284c7" strokeWidth="2" />
-      <line x1="20" y1="120" x2="135" y2="20" stroke="#dc2626" strokeWidth="2" strokeDasharray="3 2" />
-      <text x="0" y="135" fontSize="9" fill="#475569">same x-int · ↓Vmax</text>
-    </g>
-  </SvgFrame>
+  <AnchorImage
+    src="inhibition_types.jpg"
+    alt="Lineweaver-Burk plots for competitive, uncompetitive, and noncompetitive enzyme inhibition"
+    caption="Lineweaver–Burk signatures for the four classic inhibitor patterns. COMPETITIVE: lines pivot at the y-axis (Vmax unchanged, apparent Km ↑). UNCOMPETITIVE: parallel lines (both 1/Vmax and 1/Km shift by the same factor → both Vmax and Km ↓ by the same factor). PURE NONCOMPETITIVE: lines pivot at the x-axis (Km unchanged, Vmax ↓). MIXED: lines cross to the left of the y-axis (both change, generally Vmax ↓ and Km ↑ or ↓ depending on inhibitor preference for E vs ES)."
+    source="Wikimedia Commons — File:Inhibition-types.jpg (CC BY-SA)"
+  />
 );
 
 const exam = {
