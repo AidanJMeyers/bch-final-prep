@@ -1,24 +1,93 @@
 import React from 'react';
 import { Callout, Table, Pill, Theme, SvgFrame, AnchorImage, ImgGrid } from '../components/Visual.jsx';
 
-// Kept SVGs only where they're genuinely better than a lecture image: titration shape, peptide planarity, Hb/Mb curves
+// Generic AA titration curve, drawn for glycine-like values (pK1≈2.34, pI≈5.97, pK2≈9.6).
+// y-axis maps pH 0..14 onto y=200..30 → 1 pH unit ≈ 12.14 px.
+// x-axis maps 0..2 equivalents OH⁻ onto x=60..430 → 1 equiv ≈ 185 px.
+// The curve is drawn with TWO flat buffer plateaus (one centered on each pKa)
+// and a STEEP transition through pI at 1.0 equivalents — that's the part students
+// most often draw wrong.
 const TitrationCurveSVG = (
-  <SvgFrame width={460} height={220} label="Generic AA titration curve. pK₁ (~2) = α-COOH; pK₂ (~9) = α-NH₃⁺; pI = midpoint of the two pKa values that flank the zwitterion.">
-    <line x1="40" y1="190" x2="430" y2="190" stroke="#475569" />
-    <line x1="40" y1="20" x2="40" y2="190" stroke="#475569" />
-    <text x="32" y="200" fontSize="10" fill="#475569">0</text>
-    <text x="220" y="205" fontSize="10" fill="#475569">Equivalents OH⁻ →</text>
-    <text x="14" y="100" fontSize="10" fill="#475569" transform="rotate(-90 14 100)">pH</text>
-    <path d="M40,180 Q70,170 90,160 Q110,140 120,110 Q140,90 170,85 Q210,80 230,80 Q255,80 275,110 Q300,150 330,160 Q360,170 400,175" fill="none" stroke="#0284c7" strokeWidth="2.5" />
-    <circle cx="105" cy="125" r="4" fill="#16a34a" />
-    <text x="115" y="125" fontSize="10" fill="#16a34a">pK₁ (≈2)</text>
-    <circle cx="170" cy="85" r="4" fill="#7c3aed" />
-    <text x="180" y="80" fontSize="10" fill="#7c3aed">pI (zwitterion)</text>
-    <circle cx="290" cy="125" r="4" fill="#dc2626" />
-    <text x="300" y="125" fontSize="10" fill="#dc2626">pK₂ (≈9)</text>
-    <text x="60" y="170" fontSize="10" fill="#0f172a">+1 net</text>
-    <text x="195" y="65" fontSize="10" fill="#0f172a">0 net</text>
-    <text x="370" y="160" fontSize="10" fill="#0f172a">−1 net</text>
+  <SvgFrame width={460} height={250} label="Generic AA titration curve (glycine-like). The curve is FLAT at each pKa (buffer regions, 0.5 and 1.5 equiv) and STEEPEST at pI (1.0 equiv) — pI is NOT a plateau, it's the equivalence point between the two buffers.">
+    {/* axes */}
+    <line x1="60" y1="200" x2="430" y2="200" stroke="#475569" />
+    <line x1="60" y1="20" x2="60" y2="200" stroke="#475569" />
+    {/* y-axis ticks at pH 2, 5.97, 9.6, 12 */}
+    {[
+      [2, 175.7],
+      [4, 151.4],
+      [6, 127.2],
+      [8, 102.9],
+      [10, 78.6],
+      [12, 54.3]
+    ].map(([ph, y], i) => (
+      <g key={i}>
+        <line x1="56" y1={y} x2="60" y2={y} stroke="#475569" />
+        <text x="40" y={y + 3} fontSize="10" fill="#475569">{ph}</text>
+      </g>
+    ))}
+    <text x="14" y="115" fontSize="11" fill="#475569" transform="rotate(-90 14 115)">pH</text>
+    {/* x-axis ticks at 0.5, 1.0, 1.5 equiv */}
+    {[
+      [0, 60, '0'],
+      [0.5, 152.5, '0.5'],
+      [1, 245, '1.0'],
+      [1.5, 337.5, '1.5'],
+      [2, 430, '2.0']
+    ].map(([eq, x, lbl], i) => (
+      <g key={i}>
+        <line x1={x} y1="200" x2={x} y2="204" stroke="#475569" />
+        <text x={x - 8} y="216" fontSize="10" fill="#475569">{lbl}</text>
+      </g>
+    ))}
+    <text x="200" y="234" fontSize="11" fill="#475569">Equivalents of OH⁻ added</text>
+
+    {/* pI horizontal reference line */}
+    <line x1="60" y1="127.5" x2="430" y2="127.5" stroke="#c4b5fd" strokeDasharray="3 3" />
+    {/* pI vertical reference line at 1 equivalent */}
+    <line x1="245" y1="127.5" x2="245" y2="200" stroke="#c4b5fd" strokeDasharray="3 3" />
+
+    {/* Titration curve. Designed so:
+        - flat buffer plateau through pK1 at (152, 172)
+        - STEEP transition through pI at (245, 127.5)
+        - flat buffer plateau through pK2 at (337, 84)  */}
+    <path
+      d="M 60,188
+         C 80,184 92,182 105,178
+         C 125,176 140,174 152,172
+         C 165,170 180,167 200,162
+         C 218,154 232,142 245,127.5
+         C 258,113 272,99 290,92
+         C 305,87 322,85 337,84
+         C 355,82 370,80 385,78
+         C 400,73 415,63 430,54"
+      fill="none"
+      stroke="#0284c7"
+      strokeWidth="2.5"
+    />
+
+    {/* pK1 marker — sits on the FLAT plateau */}
+    <circle cx="152" cy="172" r="4" fill="#16a34a" />
+    <text x="100" y="160" fontSize="11" fill="#16a34a" fontWeight="700">pK₁ ≈ 2.34</text>
+    <text x="92" y="194" fontSize="9" fill="#16a34a">(α-COOH buffer)</text>
+
+    {/* pI marker — sits at the STEEPEST point */}
+    <circle cx="245" cy="127.5" r="5" fill="#7c3aed" />
+    <text x="252" y="120" fontSize="11" fill="#7c3aed" fontWeight="700">pI ≈ 5.97</text>
+    <text x="252" y="133" fontSize="9" fill="#7c3aed">(zwitterion / equiv. pt.)</text>
+
+    {/* pK2 marker — sits on the FLAT plateau */}
+    <circle cx="337" cy="84" r="4" fill="#dc2626" />
+    <text x="345" y="78" fontSize="11" fill="#dc2626" fontWeight="700">pK₂ ≈ 9.6</text>
+    <text x="345" y="92" fontSize="9" fill="#dc2626">(α-NH₃⁺ buffer)</text>
+
+    {/* Net charge labels in each region */}
+    <text x="75" y="146" fontSize="11" fill="#0f172a" fontWeight="700">+1</text>
+    <text x="75" y="158" fontSize="9" fill="#475569">(fully prot.)</text>
+    <text x="248" y="155" fontSize="11" fill="#0f172a" fontWeight="700">0</text>
+    <text x="240" y="167" fontSize="9" fill="#475569">(zwitterion)</text>
+    <text x="395" y="68" fontSize="11" fill="#0f172a" fontWeight="700">−1</text>
+    <text x="380" y="56" fontSize="9" fill="#475569">(fully deprot.)</text>
   </SvgFrame>
 );
 
