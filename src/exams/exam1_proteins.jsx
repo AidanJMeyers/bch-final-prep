@@ -198,6 +198,74 @@ const exam = {
           )
         },
         {
+          id: 'mnemonics',
+          title: 'One-letter mnemonics — locking in all 20',
+          subtitle: 'Group-by-group memory hooks · raunchy versions are intentional (they stick)',
+          content: (
+            <>
+              <Theme>If you can recall the <strong>group → one-letter codes → pKa values</strong> chain on demand, every "predict charge / draw zwitterion / pick the most positive peptide" question becomes mechanical. These mnemonics are deliberately weird so the codes lock in.</Theme>
+
+              <Callout kind="tip" title="Master mnemonic (all 20, in group order)">
+                <p><strong>Nonpolar aliphatic → Aromatic → Polar uncharged → Basic → Acidic</strong></p>
+                <p className="mt-2">{'"'}<strong>G</strong>etting <strong>A</strong>ss? <strong>V</strong>ery <strong>L</strong>ikely <strong>I</strong>f <strong>M</strong>y <strong>P</strong>enis <strong>F</strong>ucks <strong>Y</strong>oung <strong>W</strong>omen. <strong>S</strong>exy <strong>T</strong>hots <strong>C</strong>an{'\''}t <strong>N</strong>ever <strong>Q</strong>uit <strong>K</strong>inky <strong>R</strong>aunchy <strong>H</strong>oes {'\''}til <strong>D</strong>icks <strong>E</strong>jaculate.{'"'}</p>
+                <p className="mt-1 text-xs text-slate-500">G-A-V-L-I-M-P · F-Y-W · S-T-C-N-Q · K-R-H · D-E</p>
+              </Callout>
+
+              <h4 className="font-bold text-slate-900 mt-5 mb-1">Nonpolar aliphatic (7): G, A, V, L, I, M, P</h4>
+              <p>Mnemonic: <strong>"GAV LIMPs"</strong> — boring, greasy, hide in the protein interior. All have pI ≈ <strong>6</strong> (no R-group ionization to shift things). Met is the start codon (AUG). Proline is the kinky one — its R-group loops back to the α-N (cyclic imino acid; pI 6.48, pKa₂ 10.96).</p>
+
+              <h4 className="font-bold text-slate-900 mt-4 mb-1">Aromatic (3): F, Y, W</h4>
+              <p>Mnemonic: <strong>"Fucking Young Whores"</strong> — big rings, bulky, absorb 280 nm UV (W ≫ Y ≫ F). Tyrosine's phenolic –OH has pKR ≈ <strong>10.07</strong> ("Tyr only puts out at 10"). pI all in the 5.5–5.9 range.</p>
+
+              <h4 className="font-bold text-slate-900 mt-4 mb-1">Polar uncharged (5): S, T, C, N, Q</h4>
+              <p>Mnemonic: <strong>"Sexy Thots Can Nuzzle Quickly"</strong> — H-bonders. Ser/Thr have –OH (phosphorylation sites with Tyr); Asn has the amide (N-glycosylation site); Gln also amide; Cys has the thiol (–SH).</p>
+              <Callout kind="info" title="Cysteine is the special one in this group">
+                pKR ≈ <strong>8.18</strong> — close enough to physiological pH that it can ionize and form covalent <strong>disulfide bonds</strong> with another Cys. Memory hook: <em>"Cys is an 8 — close enough to 7 to get freaky."</em>
+              </Callout>
+
+              <h4 className="font-bold text-slate-900 mt-4 mb-1">Positive / basic (3): K, R, H</h4>
+              <p>Mnemonic: <strong>"Kinky Raunchy Hoes"</strong> — proton acceptors, positive at pH 7. The pKR values are the highest-yield numbers in the whole exam:</p>
+              <Table
+                dense
+                headers={["AA", "pKR", "Memory hook", "pI"]}
+                rows={[
+                  ["His (H)", "6.00", "\"Half-hard at 6\" — ONLY R-group buffering near physiological pH; powers active-site catalysis (chymotrypsin triad, Bohr effect)", "7.59"],
+                  ["Lys (K)", "10.53", "\"K needs 10 to lose its load\" — ε-amino group", "9.74"],
+                  ["Arg (R)", "12.48", "\"R has a 12-inch ego\" — guanidinium, almost ALWAYS protonated", "10.76"],
+                ]}
+              />
+
+              <h4 className="font-bold text-slate-900 mt-4 mb-1">Negative / acidic (2): D, E</h4>
+              <p>Mnemonic: <strong>"Dick Energy"</strong> — proton donors, negative at pH 7. Both have an extra –COOH on the R-group that ionizes well below pH 7.</p>
+              <Table
+                dense
+                headers={["AA", "pKR", "Memory hook", "pI"]}
+                rows={[
+                  ["Asp (D)", "3.65", "\"D is a Disappointing 3\"", "2.77"],
+                  ["Glu (E)", "4.25", "\"E barely makes 4\"", "3.22"],
+                ]}
+              />
+              <p className="mt-1 text-sm text-slate-700">pI mnemonic: acidic AAs have <strong>LOW pI</strong> (~3) because the R-group is already negative when net charge balances out at very acidic pH.</p>
+
+              <Callout kind="tip" title="The 7 pKR values to drill cold">
+                <ul className="space-y-0.5">
+                  <li><strong>Asp (D)</strong> = 3.65 · <em>"D is disappointing 3"</em></li>
+                  <li><strong>Glu (E)</strong> = 4.25 · <em>"E barely makes 4"</em></li>
+                  <li><strong>His (H)</strong> = 6.00 · <em>"Half-hard at 6"</em> — most important for catalysis &amp; buffering near pH 7</li>
+                  <li><strong>Cys (C)</strong> = 8.18 · <em>"Cys is an 8"</em> — disulfides</li>
+                  <li><strong>Tyr (Y)</strong> = 10.07 · <em>"Tyr puts out at 10"</em></li>
+                  <li><strong>Lys (K)</strong> = 10.53 · <em>"K needs 10"</em></li>
+                  <li><strong>Arg (R)</strong> = 12.48 · <em>"R has 12-inch ego"</em> — always protonated</li>
+                </ul>
+              </Callout>
+
+              <Callout kind="info" title="pI shortcut by group">
+                Acidic (D, E) = <strong>~3</strong>. Polar / aromatic / nonpolar = <strong>~5.5–6</strong>. His = <strong>~7.6</strong> (the only basic AA close to neutral). Lys/Arg = <strong>~10–11</strong>. So if a peptide question asks "most positive at pH 7" → count K/R/H wins; "most negative" → count D/E wins.
+              </Callout>
+            </>
+          )
+        },
+        {
           id: 'special-residues',
           title: 'Glycine and Proline — special structural roles',
           content: (
