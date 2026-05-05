@@ -276,8 +276,15 @@ const exam = {
 
               <Callout kind="tip" title="Master mnemonic (all 20, in group order)">
                 <p><strong>Nonpolar aliphatic → Aromatic → Polar uncharged → Basic → Acidic</strong></p>
-                <p className="mt-2">{'"'}<strong>G</strong>etting <strong>A</strong>ss? <strong>V</strong>ery <strong>L</strong>ikely <strong>I</strong>f <strong>M</strong>y <strong>P</strong>enis <strong>F</strong>ucks <strong>Y</strong>oung <strong>W</strong>omen. <strong>S</strong>exy <strong>T</strong>hots <strong>C</strong>an{'\''}t <strong>N</strong>ever <strong>Q</strong>uit <strong>K</strong>inky <strong>R</strong>aunchy <strong>H</strong>oes {'\''}til <strong>D</strong>icks <strong>E</strong>jaculate.{'"'}</p>
-                <p className="mt-1 text-xs text-slate-500">G-A-V-L-I-M-P · F-Y-W · S-T-C-N-Q · K-R-H · D-E</p>
+                <p className="mt-2">
+                  <strong>G</strong>etting <strong>A</strong>ss <strong>V</strong>ery <strong>L</strong>ikely <strong>i</strong>f <strong>M</strong>y <strong>P</strong>enis works.{' '}
+                  <strong>F</strong>ucking <strong>Y</strong>oung <strong>W</strong>hores.{' '}
+                  <strong>S</strong>exy <strong>T</strong>hots <strong>N</strong>uzzle <strong>Q</strong>uickly.{' '}
+                  <strong>K</strong>inky <strong>R</strong>aunchy <strong>H</strong>oes.{' '}
+                  <strong>D</strong>ick <strong>E</strong>nergy.
+                </p>
+                <p className="mt-1 text-xs text-slate-500">G-A-V-L-I-M-P · F-Y-W · S-T-N-Q · K-R-H · D-E</p>
+                <p className="mt-1 text-xs text-amber-700">Note: this version drops <strong>C</strong> (cysteine). Remember it separately by its disulfide superpower — pKR 8.18, the only polar-uncharged AA with a thiol that forms covalent S–S bonds.</p>
               </Callout>
 
               <h4 className="font-bold text-slate-900 mt-5 mb-1">Nonpolar aliphatic (7): G, A, V, L, I, M, P</h4>
